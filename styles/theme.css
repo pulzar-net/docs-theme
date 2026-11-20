@@ -195,3 +195,11 @@ main:has(.pz-hero) .content-panel:has(> .sl-container > h1#_top) {
 main:has(.pz-hero) .content-panel {
 	border-top: none;
 }
+
+/* A page that embeds a whole Markdown file (a changelog, a format spec) in
+   <div class="pz-included">: the file's own H1 repeats the page title, and a
+   README's badge line belongs on GitHub, so both go. */
+.pz-included > h1:first-child,
+.pz-included > h1:first-child + p:has(> a > img) {
+	display: none;
+}

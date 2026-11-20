@@ -6,6 +6,17 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-11-20
+
+### Fixed
+
+- A page that embeds a whole Markdown file in `<div class="pz-included">`
+  (a changelog, a format spec) no longer repeats the file's H1 or a
+  README's badge line.
+- Rust code blocks with rustdoc attributes (`rust,no_run`, `rust,ignore`)
+  are highlighted as Rust.
+- Feature cards fall into three columns, so six cards make two even rows.
+
 ## [0.1.0] - 2026-11-20
 
 ### Added
@@ -20,5 +31,6 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/pulzar-net/docs-theme/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/pulzar-net/docs-theme/releases/tag/v0.1.0

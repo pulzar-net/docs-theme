@@ -6,7 +6,7 @@ description: Add the theme to a Starlight site.
 Install the theme by its release tag, next to Astro and Starlight:
 
 ```sh
-npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.0"
+npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.1"
 ```
 
 Then add its plugins to Starlight:
@@ -34,3 +34,11 @@ Every internal link is checked when the site builds. A broken link fails the bui
 ### Headings in the display face
 
 Body text is Inter; headings are Outfit, as in the console.
+
+### Rust that rustdoc compiles
+
+```rust,no_run
+fn main() {
+    println!("highlighted as Rust");
+}
+```

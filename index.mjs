@@ -83,6 +83,24 @@ export default function pulzarDocs(options) {
 						{ tag: 'meta', attrs: { name: 'theme-color', content: '#0c111d', media: '(prefers-color-scheme: dark)' } },
 						{ tag: 'meta', attrs: { name: 'theme-color', content: '#ffffff', media: '(prefers-color-scheme: light)' } },
 					],
+					// Rust blocks that rustdoc compiles carry attributes (rust,no_run):
+					// highlight them as Rust.
+					expressiveCode:
+						config.expressiveCode === false
+							? false
+							: {
+									...(typeof config.expressiveCode === 'object' ? config.expressiveCode : {}),
+									shiki: {
+										...(typeof config.expressiveCode === 'object' ? config.expressiveCode.shiki : {}),
+										langAlias: {
+											'rust,no_run': 'rust',
+											'rust,ignore': 'rust',
+											'rust,should_panic': 'rust',
+											'rust,compile_fail': 'rust',
+											...(typeof config.expressiveCode === 'object' ? config.expressiveCode.shiki?.langAlias : {}),
+										},
+									},
+								},
 					credits: false,
 					lastUpdated: config.lastUpdated ?? true,
 				});
