@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@astrojs/starlight": "0.43.1",
-    "@pulzar-net/docs-theme": "github:pulzar-net/docs-theme#{{themeVersion}}",
+    "@pulzar-net/docs-theme": "git+https://github.com/pulzar-net/docs-theme.git#{{themeVersion}}",
     "astro": "7.4.13"
   }
 }

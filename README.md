@@ -61,7 +61,7 @@ Enable GitHub Pages with the source "GitHub Actions", and add the project to
 ## Using the theme in an existing Starlight site
 
 ```sh
-npm install @pulzar-net/docs-theme@github:pulzar-net/docs-theme#v0.1.0
+npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.0"
 ```
 
 ```js

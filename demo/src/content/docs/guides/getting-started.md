@@ -6,7 +6,7 @@ description: Add the theme to a Starlight site.
 Install the theme by its release tag, next to Astro and Starlight:
 
 ```sh
-npm install @pulzar-net/docs-theme@github:pulzar-net/docs-theme#v0.1.0
+npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.0"
 ```
 
 Then add its plugins to Starlight:
