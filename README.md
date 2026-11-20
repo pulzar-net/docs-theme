@@ -49,7 +49,7 @@ shows each one with its props.
 In the root of the project's repository:
 
 ```sh
-npx --yes github:pulzar-net/docs-theme#v0.1.1 init --project my-project --description "What it is, in one sentence."
+npx --yes github:pulzar-net/docs-theme#v0.1.3 init --project my-project --description "What it is, in one sentence."
 ```
 
 This writes `docs/` (a Starlight site with the theme, a landing page and a
@@ -66,7 +66,7 @@ Enable GitHub Pages with the source "GitHub Actions", and add the project to
 ## Using the theme in an existing Starlight site
 
 ```sh
-npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.1"
+npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.3"
 ```
 
 ```js
