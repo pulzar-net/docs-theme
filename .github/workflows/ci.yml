@@ -30,6 +30,14 @@ jobs:
       - run: npm ci
       - name: Build the demo site
         run: npm run build
+      - name: Edit links open files that exist
+        run: |
+          grep -rhoE 'href="https://github.com/pulzar-net/docs-theme/edit/main/[^"]+"' demo/dist \
+            | sed -E 's|.*/edit/main/||; s|"$||' | sort -u > "$RUNNER_TEMP/edit-links"
+          test -s "$RUNNER_TEMP/edit-links"
+          while read -r f; do
+            test -f "$f" || { echo "::error::edit link to a missing file: $f"; exit 1; }
+          done < "$RUNNER_TEMP/edit-links"
       - uses: actions/upload-pages-artifact@v3
         with:
           path: demo/dist

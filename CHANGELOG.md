@@ -6,6 +6,15 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-11-20
+
+### Fixed
+
+- Edit links open the page's file. They repeated `src/content/docs`, so every
+  "Edit page" link was a 404. The `docsPath` option is now `siteDir`: the
+  docs site's directory in the repository (default `docs`). CI checks that
+  every edit link in the demo names a file that exists.
+
 ## [0.1.1] - 2026-11-20
 
 ### Added
@@ -36,6 +45,7 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/pulzar-net/docs-theme/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/pulzar-net/docs-theme/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/pulzar-net/docs-theme/releases/tag/v0.1.0

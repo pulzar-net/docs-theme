@@ -13,7 +13,7 @@ export default defineConfig({
 		starlight({
 			title: 'docs-theme',
 			description: 'The shared Starlight theme for Pulzar open-source projects.',
-			plugins: pulzarPlugins({ project: 'docs-theme', docsPath: 'demo/src/content/docs' }),
+			plugins: pulzarPlugins({ project: 'docs-theme', siteDir: 'demo' }),
 			sidebar: [
 				{ label: 'Start here', items: ['guides', 'guides/getting-started'] },
 				{ label: 'Components', items: ['components'] },

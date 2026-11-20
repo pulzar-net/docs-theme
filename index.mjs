@@ -23,7 +23,7 @@ const here = (path) => fileURLToPath(new URL(path, import.meta.url));
  * @property {string} [repo] The repository URL; defaults to https://github.com/pulzar-net/<project>.
  * @property {string} [license] The license named in the footer; defaults to MIT.
  * @property {string} [editBranch] The branch edit links point at; defaults to main.
- * @property {string} [docsPath] The docs content directory in the repository; defaults to docs/src/content/docs.
+ * @property {string} [siteDir] The docs site's directory in the repository, where astro.config.mjs is; defaults to docs. Edit links are this plus each page's path from there.
  * @property {boolean} [validateLinks] Fail the build on broken internal links; defaults to true.
  * @property {string[]} [linkExclude] Link patterns the validator skips (for pages generated outside Starlight, such as API docs).
  * @property {Record<string, unknown>} [linkValidator] More starlight-links-validator options, such as `errorOnRelativeLinks: false` for a page that embeds a README with repository-relative links.
@@ -36,7 +36,7 @@ export default function pulzarDocs(options) {
 		repo = `https://github.com/pulzar-net/${project}`,
 		license = 'MIT',
 		editBranch = 'main',
-		docsPath = 'docs/src/content/docs',
+		siteDir = 'docs',
 		validateLinks = true,
 		linkExclude = [],
 	} = options;
@@ -70,7 +70,7 @@ export default function pulzarDocs(options) {
 					social: config.social ?? [{ icon: 'github', label: 'GitHub', href: repo }],
 					editLink: config.editLink?.baseUrl
 						? config.editLink
-						: { baseUrl: `${repo}/edit/${editBranch}/${docsPath}/` },
+						: { baseUrl: `${repo}/edit/${editBranch}/${siteDir}/` },
 					head: [
 						...(config.head ?? []),
 						{

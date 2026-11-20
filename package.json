@@ -1,6 +1,6 @@
 {
   "name": "@pulzar-net/docs-theme",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The shared Starlight theme, components and starter for Pulzar's open-source project docs.",
   "license": "MIT",
   "author": "Pulzar LLC",

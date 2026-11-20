@@ -89,7 +89,7 @@ export default defineConfig({
 | `repo` | `https://github.com/pulzar-net/<project>` | the repository, for edit links, the footer and the GitHub link |
 | `license` | `MIT` | the license the footer names |
 | `editBranch` | `main` | the branch edit links open |
-| `docsPath` | `docs/src/content/docs` | where the pages live in the repository |
+| `siteDir` | `docs` | the docs site's directory in the repository, for edit links |
 | `validateLinks` | `true` | fail the build on a broken internal link |
 | `linkExclude` | `[]` | link patterns the validator skips, such as API docs added after the build |
 | `linkValidator` | `{}` | more [starlight-links-validator options](https://starlight-links-validator.vercel.app/configuration/), such as `errorOnRelativeLinks: false` for a page that embeds a README |
