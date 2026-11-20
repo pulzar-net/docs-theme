@@ -8,6 +8,11 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.1] - 2026-11-20
 
+### Added
+
+- `linkValidator`: more options for the link validator, such as
+  `errorOnRelativeLinks: false` for a page that embeds a README.
+
 ### Fixed
 
 - A page that embeds a whole Markdown file in `<div class="pz-included">`

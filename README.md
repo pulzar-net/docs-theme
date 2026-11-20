@@ -92,6 +92,7 @@ export default defineConfig({
 | `docsPath` | `docs/src/content/docs` | where the pages live in the repository |
 | `validateLinks` | `true` | fail the build on a broken internal link |
 | `linkExclude` | `[]` | link patterns the validator skips, such as API docs added after the build |
+| `linkValidator` | `{}` | more [starlight-links-validator options](https://starlight-links-validator.vercel.app/configuration/), such as `errorOnRelativeLinks: false` for a page that embeds a README |
 
 Components:
 

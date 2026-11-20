@@ -26,6 +26,7 @@ const here = (path) => fileURLToPath(new URL(path, import.meta.url));
  * @property {string} [docsPath] The docs content directory in the repository; defaults to docs/src/content/docs.
  * @property {boolean} [validateLinks] Fail the build on broken internal links; defaults to true.
  * @property {string[]} [linkExclude] Link patterns the validator skips (for pages generated outside Starlight, such as API docs).
+ * @property {Record<string, unknown>} [linkValidator] More starlight-links-validator options, such as `errorOnRelativeLinks: false` for a page that embeds a README with repository-relative links.
  */
 
 /** @param {PulzarDocsOptions} options */
@@ -138,7 +139,9 @@ export default function pulzarDocs(options) {
 export function pulzarPlugins(options) {
 	const plugins = [pulzarDocs(options)];
 	if (options.validateLinks !== false) {
-		plugins.push(starlightLinksValidator({ exclude: options.linkExclude ?? [], errorOnLocalLinks: false }));
+		plugins.push(
+			starlightLinksValidator({ exclude: options.linkExclude ?? [], errorOnLocalLinks: false, ...options.linkValidator }),
+		);
 	}
 	return plugins;
 }
