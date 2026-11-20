@@ -88,8 +88,14 @@ const { title, tagline, actions = [], eyebrow } = Astro.props;
 	.actions {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		align-items: center;
+		gap: 0.75rem 1.5rem;
 		margin-top: 1.75rem;
+	}
+	/* Starlight's buttons carry their own margins; the row's gap spaces them,
+	   also when they wrap on a phone. */
+	.actions :global(.sl-link-button) {
+		margin: 0;
 	}
 	.mark {
 		justify-self: center;
@@ -107,10 +113,10 @@ const { title, tagline, actions = [], eyebrow } = Astro.props;
 			grid-template-columns: 1fr;
 			padding-top: 1rem;
 		}
+		/* The header already shows the mark: on a phone the hero leads with
+		   the name. */
 		.mark {
-			grid-row: 1;
-			width: 7rem;
-			justify-self: start;
+			display: none;
 		}
 	}
 </style>

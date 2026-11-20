@@ -25,4 +25,16 @@ import ProjectSwitcher from '../ProjectSwitcher.astro';
 		color: var(--sl-color-white);
 		gap: 0.55rem;
 	}
+	/* A long project name (zigbee-codec-catalog) fits beside the search
+	   and menu buttons on a phone. */
+	@media (max-width: 30rem) {
+		.pz-site-title :global(.site-title) {
+			font-size: var(--sl-text-base);
+			gap: 0.4rem;
+		}
+		.pz-site-title :global(.site-title img) {
+			height: 1.75rem;
+			width: auto;
+		}
+	}
 </style>

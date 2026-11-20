@@ -102,8 +102,9 @@ h1#_top {
 	font-weight: 600;
 }
 
-/* Hairline header and sidebar, as in the console. */
-.header {
+/* Hairline header and sidebar, as in the console. Only the page's header
+   element: Starlight's own header component inside it is also `.header`. */
+header.header {
 	border-bottom: 1px solid var(--sl-color-hairline);
 	backdrop-filter: saturate(1.4) blur(10px);
 }
@@ -157,6 +158,17 @@ h1#_top {
 		display: block;
 		overflow-x: auto;
 	}
+}
+
+/* A heading that is only a link (Keep a Changelog's `## [1.2.0]`) reads as
+   a heading; it underlines on hover. */
+.sl-markdown-content :is(h2, h3) > a:only-child {
+	color: inherit;
+	text-decoration: none;
+}
+.sl-markdown-content :is(h2, h3) > a:only-child:hover {
+	text-decoration: underline;
+	text-decoration-color: var(--sl-color-accent);
 }
 
 /* Inline code and code blocks: the console's radii. */

@@ -6,6 +6,17 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-11-20
+
+### Fixed
+
+- One hairline under the header on a phone, not two.
+- A heading that is only a link (a changelog's `## [1.2.0]`) reads as a
+  heading, not as a large link.
+- A long project name fits in the header on a phone.
+- On a phone the hero leads with the project's name; the mark is in the
+  header already.
+
 ## [0.1.2] - 2026-11-20
 
 ### Fixed
@@ -45,7 +56,8 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.2...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.1.3...HEAD
+[0.1.3]: https://github.com/pulzar-net/docs-theme/compare/v0.1.2...v0.1.3
 [0.1.2]: https://github.com/pulzar-net/docs-theme/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/pulzar-net/docs-theme/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/pulzar-net/docs-theme/releases/tag/v0.1.0
