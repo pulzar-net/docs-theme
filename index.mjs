@@ -1,14 +1,14 @@
 /**
- * @pulzar-net/docs-theme: one Starlight look for every Pulzar open-source
+ * @pulzr/docs-theme: one Starlight look for every Pulzar open-source
  * project. Add it to a Starlight site's plugins:
  *
- *   import pulzarDocs from '@pulzar-net/docs-theme';
+ *   import pulzarDocs from '@pulzr/docs-theme';
  *   starlight({ title: 'zigbee-bridge', plugins: [pulzarDocs({ project: 'zigbee-bridge' })] })
  *
  * It sets the brand (mark, colors and type from the Pulzr console's design
  * tokens, light and dark), the shared chrome (project switcher, footer, edit
  * links, GitHub link, favicon), and turns on internal link validation.
- * Components for pages are in '@pulzar-net/docs-theme/components'.
+ * Components for pages are in '@pulzr/docs-theme/components'.
  */
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -42,13 +42,13 @@ export default function pulzarDocs(options) {
 		validateLinks = true,
 		linkExclude = [],
 	} = options;
-	if (!project) throw new Error('@pulzar-net/docs-theme: `project` is required');
+	if (!project) throw new Error('@pulzr/docs-theme: `project` is required');
 
 	const site = { project, repo, license, projects };
 	const icon = readFileSync(here('./assets/icon.svg'), 'utf8');
 
 	return {
-		name: '@pulzar-net/docs-theme',
+		name: '@pulzr/docs-theme',
 		hooks: {
 			'config:setup'({ config, updateConfig, addIntegration, addRouteMiddleware }) {
 				updateConfig({
@@ -108,7 +108,7 @@ export default function pulzarDocs(options) {
 					lastUpdated: config.lastUpdated ?? true,
 				});
 				addIntegration({
-					name: '@pulzar-net/docs-theme/site',
+					name: '@pulzr/docs-theme/site',
 					hooks: {
 						'astro:config:setup'({ config: astroConfig, updateConfig: updateAstroConfig, logger }) {
 							// Status words in Markdown tables become badges, as Starlight

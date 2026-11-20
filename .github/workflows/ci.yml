@@ -1,5 +1,5 @@
 # The theme's CI: build the demo site with every component (the build fails on
-# a broken internal link), run `pulzar-docs init` and build the site it
+# a broken internal link), run `pulzr-docs init` and build the site it
 # writes against this commit's theme, and publish the demo to GitHub Pages
 # from main.
 
@@ -53,18 +53,22 @@ jobs:
       - name: init writes a site, and the site builds with this commit's theme
         run: |
           set -euo pipefail
-          site="$(mktemp -d)"
-          node bin/pulzar-docs.mjs init --project starter-check --description "A site from the starter." --dir "${site}"
-          cd "${site}/docs"
-          # As a git dependency is installed: packed, with its own dependencies.
+          # As npm publishes it: packed, then unpacked, so a file npm leaves
+          # out of a package (a .gitignore) is missing here too.
           pack="$(mktemp -d)"
-          (cd "${GITHUB_WORKSPACE}" && npm pack --silent --pack-destination "${pack}")
+          npm pack --silent --pack-destination "${pack}"
           tarball="$(ls "${pack}"/*.tgz)"
-          npm pkg set "dependencies.@pulzar-net/docs-theme=file:${tarball}"
+          tar -xzf "${tarball}" -C "${pack}"
+          init="${pack}/package/bin/pulzr-docs.mjs"
+          site="$(mktemp -d)"
+          node "${init}" init --project starter-check --description "A site from the starter." --dir "${site}"
+          test -f "${site}/docs/.gitignore"
+          cd "${site}/docs"
+          npm pkg set "dependencies.@pulzr/docs-theme=file:${tarball}"
           npm install --no-audit --no-fund
           npm run build
           test -f dist/getting-started.html
-          if node "${GITHUB_WORKSPACE}/bin/pulzar-docs.mjs" init --project x --description y --dir "${site}"; then
+          if node "${init}" init --project x --description y --dir "${site}"; then
             echo "init overwrote existing files" >&2; exit 1
           fi
 

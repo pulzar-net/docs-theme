@@ -1,5 +1,6 @@
 # docs-theme
 
+[![npm](https://img.shields.io/npm/v/@pulzr/docs-theme.svg)](https://www.npmjs.com/package/@pulzr/docs-theme)
 [![CI](https://github.com/pulzar-net/docs-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/pulzar-net/docs-theme/actions/workflows/ci.yml)
 [![Demo](https://img.shields.io/badge/demo-pulzar--net.github.io-blue)](https://pulzar-net.github.io/docs-theme/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
@@ -49,7 +50,7 @@ shows each one with its props.
 In the root of the project's repository:
 
 ```sh
-npx --yes github:pulzar-net/docs-theme#v0.1.3 init --project my-project --description "What it is, in one sentence."
+npx --yes @pulzr/docs-theme init --project my-project --description "What it is, in one sentence."
 ```
 
 This writes `docs/` (a Starlight site with the theme, a landing page and a
@@ -66,14 +67,14 @@ Enable GitHub Pages with the source "GitHub Actions", and add the project to
 ## Using the theme in an existing Starlight site
 
 ```sh
-npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.3"
+npm install --save-exact @pulzr/docs-theme
 ```
 
 ```js
 // astro.config.mjs
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import { pulzarPlugins } from '@pulzar-net/docs-theme';
+import { pulzarPlugins } from '@pulzr/docs-theme';
 
 export default defineConfig({
   site: 'https://pulzar-net.github.io',
@@ -102,7 +103,7 @@ export default defineConfig({
 Components:
 
 ```mdx
-import { Hero, StatusMatrix } from '@pulzar-net/docs-theme/components';
+import { Hero, StatusMatrix } from '@pulzr/docs-theme/components';
 ```
 
 ### Conventions every site follows
@@ -125,9 +126,11 @@ npm run dev      # the demo site, with every component
 npm run build
 ```
 
-Release by tagging `vX.Y.Z` on main; sites pin the theme by tag and move to a
-new one with a one-line change. [CHANGELOG.md](CHANGELOG.md) lists what
-changed.
+To release, set `version` in `package.json`, add its section to
+[CHANGELOG.md](CHANGELOG.md), and push the tag `vX.Y.Z` on main. The
+release workflow publishes `@pulzr/docs-theme` to npm with provenance and
+makes the GitHub release from the changelog. Sites pin an exact version and
+move to a new one with a one-line change.
 
 ## License
 

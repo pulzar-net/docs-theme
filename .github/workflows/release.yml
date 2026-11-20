@@ -1,0 +1,65 @@
+# A v* tag publishes @pulzr/docs-theme to npm, with provenance, and makes
+# the GitHub release from the tag's CHANGELOG section.
+#
+# npm is reached by OIDC as this repository's trusted publisher, so no token
+# is stored. npm attaches a trusted publisher only to a package that exists:
+# the first version goes out either by hand or through a short-lived
+# NPM_TOKEN secret (deleted once the trusted publisher is set). A version
+# already on npm is skipped, so re-running a tag is safe.
+
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write # the GitHub release
+  id-token: write # npm trusted publishing, and provenance
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+          registry-url: https://registry.npmjs.org
+      - name: The tag is the package version
+        run: test "$GITHUB_REF_NAME" = "v$(node -p 'require("./package.json").version')"
+      - run: npm ci
+      - name: The demo builds with this version
+        run: npm run build
+      # Trusted publishing needs npm 11.5.1 or later.
+      - run: npm install -g npm@11
+      - name: Publish to npm
+        env:
+          # Only for the first version; empty once the trusted publisher is set.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          name=$(node -p 'require("./package.json").name')
+          version=$(node -p 'require("./package.json").version')
+          if npm view "$name@$version" version >/dev/null 2>&1; then
+            echo "$name@$version is already on npm"
+          else
+            npm publish --provenance --access public
+          fi
+      - name: GitHub release, with the CHANGELOG's notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          awk -v v="$version" '
+            $0 ~ "^## \\[" v "\\]" { on = 1; next }
+            on && /^## \[/ { exit }
+            on { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          test -s "$RUNNER_TEMP/notes.md"
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            echo "release $GITHUB_REF_NAME exists"
+          else
+            gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file "$RUNNER_TEMP/notes.md"
+          fi

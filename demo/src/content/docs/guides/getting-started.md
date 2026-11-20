@@ -3,17 +3,17 @@ title: Getting started
 description: Add the theme to a Starlight site.
 ---
 
-Install the theme by its release tag, next to Astro and Starlight:
+Install the theme from npm, pinned, next to Astro and Starlight:
 
 ```sh
-npm install "@pulzar-net/docs-theme@git+https://github.com/pulzar-net/docs-theme.git#v0.1.1"
+npm install --save-exact @pulzr/docs-theme
 ```
 
 Then add its plugins to Starlight:
 
 ```js title="astro.config.mjs"
 import starlight from '@astrojs/starlight';
-import { pulzarPlugins } from '@pulzar-net/docs-theme';
+import { pulzarPlugins } from '@pulzr/docs-theme';
 
 starlight({
   title: 'zigbee-bridge',

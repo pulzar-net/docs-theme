@@ -1,8 +1,8 @@
 #!/usr/bin/env node
-// pulzar-docs init: a new project's docs site, from the starter in this
+// pulzr-docs init: a new project's docs site, from the starter in this
 // package. Run in the root of the project's repository:
 //
-//   npx --yes github:pulzar-net/docs-theme#v0.1.0 init --project my-project --description "What it is."
+//   npx --yes @pulzr/docs-theme init --project my-project --description "What it is."
 //
 // It writes docs/ (Starlight with the Pulzar theme) and
 // .github/workflows/docs.yml, and refuses to overwrite a file that exists.
@@ -13,7 +13,7 @@ import { parseArgs } from 'node:util';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const pkg = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-const usage = 'usage: pulzar-docs init --project NAME --description TEXT [--dir PATH]';
+const usage = 'usage: pulzr-docs init --project NAME --description TEXT [--dir PATH]';
 
 const { positionals, values } = parseArgs({
 	allowPositionals: true,
@@ -32,11 +32,14 @@ if (values.help || positionals[0] !== 'init' || !values.project || !values.descr
 const vars = {
 	project: values.project,
 	description: values.description,
-	themeVersion: `v${pkg.version}`,
+	themeVersion: pkg.version,
 };
 const fill = (text) => text.replace(/\{\{(\w+)\}\}/g, (m, k) => vars[k] ?? m);
 
 const starter = join(root, 'starter');
+// npm leaves .gitignore files out of a package, so the starter's is stored
+// as `gitignore` and written under its real name.
+const targetName = (f) => f.replace(/(^|[/\\])gitignore$/, '$1.gitignore');
 const files = [];
 (function walk(dir) {
 	for (const name of readdirSync(dir)) {
@@ -47,13 +50,13 @@ const files = [];
 })(starter);
 
 const target = values.dir;
-const clashes = files.filter((f) => existsSync(join(target, f)));
+const clashes = files.map(targetName).filter((f) => existsSync(join(target, f)));
 if (clashes.length) {
-	console.error(`pulzar-docs: these exist already, nothing written:\n  ${clashes.join('\n  ')}`);
+	console.error(`pulzr-docs: these exist already, nothing written:\n  ${clashes.join('\n  ')}`);
 	process.exit(1);
 }
 for (const f of files) {
-	const out = join(target, f);
+	const out = join(target, targetName(f));
 	mkdirSync(dirname(out), { recursive: true });
 	writeFileSync(out, fill(readFileSync(join(starter, f), 'utf8')));
 	console.log(`wrote ${out}`);
