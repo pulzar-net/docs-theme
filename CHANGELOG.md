@@ -16,6 +16,8 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A long project name fits in the header on a phone.
 - On a phone the hero leads with the project's name; the mark is in the
   header already.
+- The starter's workflow uses the current GitHub actions, and Dependabot
+  keeps them current.
 
 ## [0.1.2] - 2026-11-20
 

@@ -8,7 +8,8 @@ updates:
       npm:
         patterns: ['*']
   - package-ecosystem: github-actions
-    directory: /
+    # The starter's workflow too, so a new site starts on current actions.
+    directories: ['/', '/starter']
     schedule:
       interval: weekly
     groups:
