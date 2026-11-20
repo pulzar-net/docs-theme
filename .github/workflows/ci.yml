@@ -48,7 +48,11 @@ jobs:
           site="$(mktemp -d)"
           node bin/pulzar-docs.mjs init --project starter-check --description "A site from the starter." --dir "${site}"
           cd "${site}/docs"
-          npm pkg set "dependencies.@pulzar-net/docs-theme=file:${GITHUB_WORKSPACE}"
+          # As a git dependency is installed: packed, with its own dependencies.
+          pack="$(mktemp -d)"
+          (cd "${GITHUB_WORKSPACE}" && npm pack --silent --pack-destination "${pack}")
+          tarball="$(ls "${pack}"/*.tgz)"
+          npm pkg set "dependencies.@pulzar-net/docs-theme=file:${tarball}"
           npm install --no-audit --no-fund
           npm run build
           test -f dist/getting-started.html
