@@ -64,6 +64,17 @@ cd docs && npm install && npm run dev
 Enable GitHub Pages with the source "GitHub Actions", and add the project to
 [`projects.mjs`](projects.mjs) so it appears in every site's switcher.
 
+The site pins the theme at an exact version. To get each new release as a
+pull request, give Dependabot the docs directory:
+
+```yaml
+# .github/dependabot.yml, under updates:
+- package-ecosystem: npm
+  directory: /docs
+  schedule:
+    interval: weekly
+```
+
 ## Using the theme in an existing Starlight site
 
 ```sh

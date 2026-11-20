@@ -64,4 +64,9 @@ for (const f of files) {
 console.log(`
 Next:
   cd ${join(target, 'docs')} && npm install && npm run dev
-  Enable GitHub Pages with source "GitHub Actions" for the repository.`);
+  Enable GitHub Pages with source "GitHub Actions" for the repository.
+  Keep the theme current: in .github/dependabot.yml, under updates:
+    - package-ecosystem: npm
+      directory: /docs
+      schedule:
+        interval: weekly`);
