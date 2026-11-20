@@ -215,3 +215,37 @@ main:has(.pz-hero) .content-panel {
 .pz-included > h1:first-child + p:has(> a > img) {
 	display: none;
 }
+
+/* Status badges: the StatusBadge component, and a status word in a
+   Markdown table's State or Status column (status-badges.mjs). */
+.pz-badge {
+	--c: var(--pz-status-expected);
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	padding: 0.12em 0.6em;
+	border-radius: 999px;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	line-height: 1.5;
+	white-space: nowrap;
+	color: color-mix(in srgb, var(--c) 80%, var(--sl-color-white));
+	background: color-mix(in srgb, var(--c) 14%, transparent);
+	border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+}
+:root[data-theme='light'] .pz-badge {
+	color: color-mix(in srgb, var(--c) 75%, #000);
+}
+.pz-badge::before {
+	content: '';
+	width: 0.45em;
+	height: 0.45em;
+	border-radius: 50%;
+	background: var(--c);
+}
+.pz-tone-tested { --c: var(--pz-status-tested); }
+.pz-tone-expected { --c: var(--pz-status-expected); }
+.pz-tone-progress { --c: var(--pz-status-progress); }
+.pz-tone-planned { --c: var(--pz-status-planned); }
+.pz-tone-unsupported { --c: var(--pz-status-unsupported); }
+.pz-tone-error { --c: var(--pz-status-error); }

@@ -14,6 +14,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import starlightLinksValidator from 'starlight-links-validator';
 import { projects } from './projects.mjs';
+import { isSatteriProcessor } from '@astrojs/markdown-satteri';
+import { statusBadgesPlugin } from './status-badges.mjs';
 
 const here = (path) => fileURLToPath(new URL(path, import.meta.url));
 
@@ -108,7 +110,12 @@ export default function pulzarDocs(options) {
 				addIntegration({
 					name: '@pulzar-net/docs-theme/site',
 					hooks: {
-						'astro:config:setup'({ updateConfig: updateAstroConfig }) {
+						'astro:config:setup'({ config: astroConfig, updateConfig: updateAstroConfig, logger }) {
+							// Status words in Markdown tables become badges, as Starlight
+							// adds its own transforms: on the Sätteri processor.
+							const processor = astroConfig.markdown.processor;
+							if (isSatteriProcessor(processor)) processor.options.hastPlugins.push(statusBadgesPlugin());
+							else logger.warn('Status badges in Markdown tables need the default (Sätteri) Markdown processor.');
 							updateAstroConfig({
 								vite: {
 									plugins: [

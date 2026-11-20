@@ -32,6 +32,19 @@ import { StatusMatrix, HardwareTable, MqttTopic, StatusBadge, Snippet } from '..
 	]}
 />
 
+### In a plain Markdown table
+
+A table with a **State** or **Status** column needs no component: a cell that
+holds only a status word is drawn as its badge, and the file still reads as a
+plain table on GitHub.
+
+| Coordinator | Chip | State |
+|---|---|---|
+| Home Assistant Connect ZBT-1 | EFR32MG21 | tested |
+| Sonoff ZBDongle-P | CC2652P | expected |
+| Conbee III | deCONZ | in progress |
+| CC2531 | CC2531 | unsupported |
+
 ## MQTT topic
 
 <MqttTopic topic="zigbee/<device>/set" direction="in" example='{"state": "ON", "brightness": 200, "transition": 1.5}'>

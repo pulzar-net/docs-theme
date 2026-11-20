@@ -8,6 +8,11 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.1.3] - 2026-11-20
 
+### Added
+
+- Status badges in plain Markdown tables: in a column headed State or
+  Status, a cell that is only a status word is drawn as its badge.
+
 ### Fixed
 
 - One hairline under the header on a phone, not two.

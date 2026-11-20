@@ -36,6 +36,11 @@ starter that gives a new project its docs site in one command.
 | `MqttTopic` | one MQTT topic: direction, retention, purpose, example payload |
 | `Snippet` | a code region from another file (between `ANCHOR:` lines), so docs show code a test runs |
 
+A plain Markdown table needs no component for its badges: in a column headed
+**State** or **Status**, a cell that is only a status word (`tested`,
+`expected`, `in progress`, `planned`, `unsupported`, ...) is drawn as that
+badge.
+
 The [component gallery](https://pulzar-net.github.io/docs-theme/components.html)
 shows each one with its props.
 
