@@ -1,0 +1,122 @@
+---
+/*
+ * How to download a release binary and check it against SHA256SUMS. The
+ * commands are generated from the release's file names, so they match what
+ * the release workflow publishes.
+ *
+ *   <ReleaseDownload repo="pulzar-net/zwave-bridge" version="0.2.0"
+ *     binary="zwave-bridge" asset="{binary}-{arch}-linux-musl" />
+ *
+ * `asset` may use {binary}, {version} and {arch}; `arch` is filled from
+ * `uname -m` (x86_64 or aarch64).
+ */
+import { Code } from '@astrojs/starlight/components';
+interface Props {
+	repo: string;
+	version: string;
+	binary: string;
+	asset?: string;
+	installTo?: string;
+	archs?: { arch: string; label: string }[];
+}
+const {
+	repo,
+	version,
+	binary,
+	asset = '{binary}-{arch}-linux-musl',
+	installTo = '/usr/local/bin',
+	archs = [
+		{ arch: 'x86_64', label: 'PCs and servers' },
+		{ arch: 'aarch64', label: 'Raspberry Pi 3 and newer, 64-bit OS' },
+		{ arch: 'mipsel', label: 'MT7621 and MT7628 routers' },
+	],
+} = Astro.props;
+const file = asset.replaceAll('{binary}', binary).replaceAll('{version}', '$VERSION').replaceAll('{arch}', '$ARCH');
+const code = [
+	`VERSION=${version}`,
+	`ARCH=$(uname -m)   # x86_64 or aarch64`,
+	`BASE=https://github.com/${repo}/releases/download/v$VERSION`,
+	`curl -fsSLO "$BASE/${file}"`,
+	`curl -fsSLO "$BASE/SHA256SUMS"`,
+	`sha256sum --check --ignore-missing SHA256SUMS`,
+	`sudo install -m 0755 "${file}" ${installTo}/${binary}`,
+	`${binary} --version`,
+].join('\n');
+const releaseUrl = `https://github.com/${repo}/releases/tag/v${version}`;
+---
+
+<div class="pz-release not-content">
+	<div class="head">
+		<span class="label">Latest release</span>
+		<a class="version" href={releaseUrl}>v{version}</a>
+		<span class="archs">{archs.map((a) => <span title={a.label}>{a.arch}</span>)}</span>
+	</div>
+	<Code code={code} lang="sh" />
+	<p class="check">
+		<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+		<code>sha256sum --check</code> must print <code>OK</code> for the file you downloaded before you install it.
+	</p>
+</div>
+
+<style>
+	.pz-release {
+		margin: 1.25rem 0;
+		padding: 0.9rem;
+		background: var(--pz-card-bg);
+		border: 1px solid var(--pz-card-border);
+		border-radius: var(--pz-radius-lg);
+		box-shadow: var(--pz-card-shadow);
+	}
+	.head {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.5rem 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+	.label {
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--sl-color-gray-3);
+	}
+	.version {
+		font-family: var(--pz-font-display);
+		font-weight: 600;
+		font-size: var(--sl-text-lg);
+		color: var(--sl-color-accent);
+		text-decoration: none;
+	}
+	.archs {
+		display: flex;
+		gap: 0.35rem;
+		margin-inline-start: auto;
+	}
+	.archs span {
+		padding: 0.05rem 0.45rem;
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		font-family: var(--sl-font-mono);
+		color: var(--pz-text-secondary);
+		border: 1px solid var(--pz-card-border);
+	}
+	.check {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
+		margin: 0.7rem 0 0;
+		font-size: var(--sl-text-xs);
+		color: var(--pz-text-secondary);
+	}
+	.check svg {
+		color: var(--pz-status-tested);
+		flex-shrink: 0;
+	}
+	.check code {
+		font-size: 0.95em;
+		padding: 0.05em 0.3em;
+		border-radius: 4px;
+		background: var(--sl-color-bg-inline-code);
+	}
+</style>

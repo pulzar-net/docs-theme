@@ -1,0 +1,59 @@
+---
+/*
+ * A status pill. `status` is one of: tested, expected, unsupported, done,
+ * next, progress, planned, not-planned; or pass `label` and `tone` yourself.
+ */
+interface Props {
+	status?: string;
+	label?: string;
+	tone?: 'tested' | 'expected' | 'progress' | 'planned' | 'unsupported' | 'error';
+}
+const presets: Record<string, { label: string; tone: string }> = {
+	tested: { label: 'Tested', tone: 'tested' },
+	done: { label: 'Done', tone: 'tested' },
+	expected: { label: 'Expected', tone: 'expected' },
+	next: { label: 'Next release', tone: 'expected' },
+	progress: { label: 'In progress', tone: 'progress' },
+	planned: { label: 'Planned', tone: 'planned' },
+	unsupported: { label: 'Unsupported', tone: 'unsupported' },
+	'not-planned': { label: 'Not planned', tone: 'unsupported' },
+};
+const { status = '', label, tone } = Astro.props;
+const preset = presets[status] ?? { label: status, tone: 'expected' };
+---
+
+<span class:list={['pz-badge', `pz-tone-${tone ?? preset.tone}`]}>{label ?? preset.label}</span>
+
+<style>
+	.pz-badge {
+		--c: var(--pz-status-expected);
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35em;
+		padding: 0.12em 0.6em;
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		line-height: 1.5;
+		white-space: nowrap;
+		color: color-mix(in srgb, var(--c) 80%, var(--sl-color-white));
+		background: color-mix(in srgb, var(--c) 14%, transparent);
+		border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+	}
+	:global([data-theme='light']) .pz-badge {
+		color: color-mix(in srgb, var(--c) 75%, #000);
+	}
+	.pz-badge::before {
+		content: '';
+		width: 0.45em;
+		height: 0.45em;
+		border-radius: 50%;
+		background: var(--c);
+	}
+	.pz-tone-tested { --c: var(--pz-status-tested); }
+	.pz-tone-expected { --c: var(--pz-status-expected); }
+	.pz-tone-progress { --c: var(--pz-status-progress); }
+	.pz-tone-planned { --c: var(--pz-status-planned); }
+	.pz-tone-unsupported { --c: var(--pz-status-unsupported); }
+	.pz-tone-error { --c: var(--pz-status-error); }
+</style>

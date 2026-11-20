@@ -1,0 +1,37 @@
+---
+/*
+ * A code block from another file, so docs show the same code a test runs.
+ * Import the file raw and name the region between `ANCHOR: name` and
+ * `ANCHOR_END: name` lines (any comment syntax), or show the whole file.
+ * Lines rustdoc hides (`# `) are dropped from Rust code.
+ *
+ *   import readme from '../../../../crates/x/README.md?raw';
+ *   <Snippet code={readme} anchor="scan" lang="rust" />
+ */
+import { Code } from '@astrojs/starlight/components';
+interface Props {
+	code: string;
+	anchor?: string;
+	lang?: string;
+	title?: string;
+	fence?: boolean;
+}
+const { code, anchor, lang = 'text', title, fence = true } = Astro.props;
+let lines = code.split('\n');
+if (anchor) {
+	const start = lines.findIndex((l) => l.includes(`ANCHOR: ${anchor}`));
+	const end = lines.findIndex((l) => l.includes(`ANCHOR_END: ${anchor}`));
+	if (start < 0 || end < start) throw new Error(`Snippet: no ANCHOR ${anchor} region`);
+	lines = lines.slice(start + 1, end);
+}
+// A region holding a fenced block: keep what is inside the fence.
+if (fence && lines.some((l) => l.startsWith('```'))) {
+	const open = lines.findIndex((l) => l.startsWith('```'));
+	const close = lines.findIndex((l, i) => i > open && l.startsWith('```'));
+	lines = lines.slice(open + 1, close);
+}
+if (lang === 'rust') lines = lines.filter((l) => !/^\s*# /.test(l) && l.trim() !== '#');
+const text = lines.join('\n').replace(/\n+$/, '');
+---
+
+<Code code={text} lang={lang} title={title} />

@@ -1,0 +1,72 @@
+# The theme's CI: build the demo site with every component (the build fails on
+# a broken internal link), run `pulzar-docs init` and build the site it
+# writes against this commit's theme, and publish the demo to GitHub Pages
+# from main.
+
+name: ci
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Build the demo site
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: demo/dist
+
+  starter:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: init writes a site, and the site builds with this commit's theme
+        run: |
+          set -euo pipefail
+          site="$(mktemp -d)"
+          node bin/pulzar-docs.mjs init --project starter-check --description "A site from the starter." --dir "${site}"
+          cd "${site}/docs"
+          npm pkg set "dependencies.@pulzar-net/docs-theme=file:${GITHUB_WORKSPACE}"
+          npm install --no-audit --no-fund
+          npm run build
+          test -f dist/getting-started.html
+          if node "${GITHUB_WORKSPACE}/bin/pulzar-docs.mjs" init --project x --description y --dir "${site}"; then
+            echo "init overwrote existing files" >&2; exit 1
+          fi
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: [demo, starter]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

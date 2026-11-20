@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="177 108 520 450">
+  <style>
+    .link { stroke: #6366f1; }
+    .link-glow { stroke: #a5b4fc; }
+    .star { fill: #fff; stroke: #3b82f6; }
+    .burst { fill: #8b5cf6; }
+    .o0 { stop-color: #a78bfa; }
+    .halo { opacity: 0.55; }
+      </style>
+  <defs>
+    <linearGradient id="orbit" gradientUnits="userSpaceOnUse" x1="200" y1="440" x2="680" y2="250">
+      <stop offset="0" class="o0"/>
+      <stop offset="0.35" stop-color="#8b5cf6"/>
+      <stop offset="0.7" stop-color="#6d28d9"/>
+      <stop offset="1" stop-color="#a78bfa"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop offset="0" stop-color="#c4b5fd" stop-opacity="0.9"/>
+      <stop offset="0.35" stop-color="#8b5cf6" stop-opacity="0.45"/>
+      <stop offset="1" stop-color="#6d28d9" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feFlood flood-color="#60a5fa"/>
+      <feComposite operator="in" in2="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="8.8" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <g transform="rotate(-21.5 435 350)" filter="url(#soft)">
+    <path fill="url(#orbit)" fill-rule="evenodd" d="M189 350a246 52 0 1 0 492 0a246 52 0 1 0-492 0ZM193 347.5a242 48.5 0 1 0 484 0a242 48.5 0 1 0-484 0Z"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path class="link-glow" d="M385 158V505M385 158L520 245L385 312M520 245L480 388L385 312L287 446" stroke-width="16" opacity="0.45" filter="url(#blur)"/>
+    <path class="link" d="M385 158V505M385 158L520 245L385 312M520 245L480 388L385 312L287 446" stroke-width="8"/>
+  </g>
+  <circle class="halo" cx="385" cy="312" r="95" fill="url(#halo)"/>
+  <g class="burst" filter="url(#soft)">
+    <path d="M385 222L391 312L385 402L379 312Z"/>
+    <path d="M295 312L385 306L475 312L385 318Z"/>
+    <path d="M343 270L389 308L427 354L381 316Z" opacity="0.8"/>
+    <path d="M343 354L381 308L427 270L389 316Z" opacity="0.8"/>
+  </g>
+  <g class="star" stroke-width="5" filter="url(#glow)">
+    <circle cx="385" cy="158" r="22"/>
+    <circle cx="520" cy="245" r="21"/>
+    <circle cx="385" cy="312" r="21"/>
+    <circle cx="480" cy="388" r="21"/>
+    <circle cx="287" cy="446" r="19"/>
+    <circle cx="385" cy="505" r="22"/>
+  </g>
+</svg>

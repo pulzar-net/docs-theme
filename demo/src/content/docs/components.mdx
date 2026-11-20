@@ -1,0 +1,53 @@
+---
+title: Components
+description: Every component the theme provides, with its props.
+---
+
+import { StatusMatrix, HardwareTable, MqttTopic, StatusBadge, Snippet } from '../../../../components/index.mjs';
+
+## Status badges
+
+<StatusBadge status="tested" /> <StatusBadge status="expected" /> <StatusBadge status="progress" /> <StatusBadge status="planned" /> <StatusBadge status="unsupported" />
+
+## Status matrix
+
+<StatusMatrix
+	rows={[
+		{ feature: 'Silicon Labs EmberZNet coordinators', status: 'done', note: '0.1.0' },
+		{ feature: 'Texas Instruments Z-Stack coordinators', status: 'done', note: '0.2.0' },
+		{ feature: 'Testing on real hardware', status: 'progress' },
+		{ feature: 'Groups and scenes', status: 'planned' },
+		{ feature: 'A web frontend', status: 'not-planned' },
+	]}
+/>
+
+## Hardware table
+
+<HardwareTable
+	columns={[['name', 'Coordinator'], ['chip', 'Chip'], ['firmware', 'Firmware']]}
+	rows={[
+		{ name: 'Home Assistant Connect ZBT-1', chip: 'EFR32MG21', firmware: 'EmberZNet 7.4 or newer', status: 'tested' },
+		{ name: 'Sonoff ZBDongle-P', chip: 'CC2652P', firmware: 'Z-Stack 3.x.0', status: 'expected' },
+		{ name: 'CC2531', chip: 'CC2531', firmware: 'Z-Stack Home 1.2', status: 'unsupported', note: 'Refused; <code>probe</code> still identifies it' },
+	]}
+/>
+
+## MQTT topic
+
+<MqttTopic topic="zigbee/<device>/set" direction="in" example='{"state": "ON", "brightness": 200, "transition": 1.5}'>
+	Switch a light or plug, set brightness and color temperature.
+</MqttTopic>
+
+<MqttTopic topic="zigbee/bridge/state" direction="out" retained example='{"state": "online"}'>
+	Whether the bridge is running; also its MQTT last will.
+</MqttTopic>
+
+## Snippet
+
+export const sample = `// ANCHOR: hello
+fn main() {
+    println!("hello");
+}
+// ANCHOR_END: hello`;
+
+<Snippet code={sample} anchor="hello" lang="rust" />

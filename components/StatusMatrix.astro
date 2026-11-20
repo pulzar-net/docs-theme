@@ -1,0 +1,46 @@
+---
+/*
+ * A feature matrix with status badges. `rows` is a list of
+ * { feature, status, note? } where status is a StatusBadge preset
+ * (done, next, progress, planned, not-planned, ...) and note is shown
+ * beside it (a version, for instance "0.2.0").
+ */
+import StatusBadge from './StatusBadge.astro';
+interface Row {
+	feature: string;
+	status: string;
+	note?: string;
+}
+interface Props {
+	rows: Row[];
+	caption?: string;
+}
+const { rows, caption } = Astro.props;
+---
+
+<div class="pz-table-wrap not-content">
+	<table class="pz-table">
+		{caption && <caption>{caption}</caption>}
+		<thead><tr><th scope="col">Feature</th><th scope="col">State</th></tr></thead>
+		<tbody>
+			{rows.map((r) => (
+				<tr>
+					<td set:html={r.feature} />
+					<td class="state"><StatusBadge status={r.status} />{r.note && <span class="note">{r.note}</span>}</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	@import './table.css';
+	.state {
+		white-space: nowrap;
+	}
+	.note {
+		margin-inline-start: 0.5rem;
+		font-size: var(--sl-text-xs);
+		color: var(--pz-text-secondary);
+	}
+</style>

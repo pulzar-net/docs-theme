@@ -1,0 +1,116 @@
+---
+/*
+ * A landing hero: the project's name, a one-line pitch, optional badges,
+ * and call-to-action buttons. Use on a page with `template: splash`.
+ */
+import { LinkButton } from '@astrojs/starlight/components';
+import markLight from '../assets/mark-light.svg';
+import markDark from '../assets/mark-dark.svg';
+
+interface Action {
+	text: string;
+	link: string;
+	variant?: 'primary' | 'secondary' | 'minimal';
+	icon?: string;
+}
+interface Props {
+	title: string;
+	tagline: string;
+	actions?: Action[];
+	eyebrow?: string;
+}
+const { title, tagline, actions = [], eyebrow } = Astro.props;
+---
+
+<section class="pz-hero not-content">
+	<div class="glow" aria-hidden="true"></div>
+	<div class="copy">
+		{eyebrow && <p class="eyebrow">{eyebrow}</p>}
+		<h1 class="pz-display">{title}</h1>
+		<p class="tagline">{tagline}</p>
+		<slot />
+		{actions.length > 0 && (
+			<div class="actions">
+				{actions.map((a) => (
+					<LinkButton href={a.link} variant={a.variant ?? 'primary'} icon={a.icon as any}>
+						{a.text}
+					</LinkButton>
+				))}
+			</div>
+		)}
+	</div>
+	<div class="mark" aria-hidden="true">
+		<img class="light" src={markLight.src} alt="" width="360" height="311" />
+		<img class="dark" src={markDark.src} alt="" width="360" height="311" />
+	</div>
+</section>
+
+<style>
+	.pz-hero {
+		position: relative;
+		display: grid;
+		grid-template-columns: 1.4fr 1fr;
+		align-items: center;
+		gap: 2rem;
+		padding: 2.5rem 0 1.5rem;
+		isolation: isolate;
+	}
+	.glow {
+		position: absolute;
+		inset: -10% -5% auto auto;
+		width: 60%;
+		aspect-ratio: 1;
+		background: radial-gradient(circle, var(--pz-glow), transparent 65%);
+		z-index: -1;
+		pointer-events: none;
+	}
+	.eyebrow {
+		margin: 0 0 0.75rem;
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-accent);
+		letter-spacing: 0.02em;
+	}
+	h1 {
+		margin: 0;
+		font-size: clamp(2.4rem, 6vw, 3.6rem);
+		line-height: 1.05;
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+	.tagline {
+		margin: 1rem 0 0;
+		max-width: 36rem;
+		font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+		line-height: 1.55;
+		color: var(--pz-text-secondary);
+	}
+	.actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+		margin-top: 1.75rem;
+	}
+	.mark {
+		justify-self: center;
+		width: min(100%, 20rem);
+	}
+	.mark img {
+		width: 100%;
+		height: auto;
+	}
+	.mark .light { display: none; }
+	:global([data-theme='light']) .mark .light { display: block; }
+	:global([data-theme='light']) .mark .dark { display: none; }
+	@media (max-width: 50rem) {
+		.pz-hero {
+			grid-template-columns: 1fr;
+			padding-top: 1rem;
+		}
+		.mark {
+			grid-row: 1;
+			width: 7rem;
+			justify-self: start;
+		}
+	}
+</style>

@@ -1,0 +1,44 @@
+/* Shared by the table components: the console's card table. */
+.pz-table-wrap {
+	margin: 1.25rem 0;
+	overflow-x: auto;
+	border: 1px solid var(--pz-card-border);
+	border-radius: var(--pz-radius-md);
+	background: var(--pz-card-bg);
+	box-shadow: var(--pz-card-shadow);
+}
+.pz-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: var(--sl-text-sm);
+}
+.pz-table caption {
+	padding: 0.6rem 0.9rem;
+	text-align: start;
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+.pz-table th {
+	padding: 0.55rem 0.9rem;
+	text-align: start;
+	font-weight: 600;
+	color: var(--sl-color-gray-3);
+	background: color-mix(in srgb, var(--sl-color-gray-6) 70%, transparent);
+	border-bottom: 1px solid var(--pz-card-border);
+	white-space: nowrap;
+}
+.pz-table td {
+	padding: 0.6rem 0.9rem;
+	border-bottom: 1px solid var(--pz-card-border);
+	vertical-align: top;
+	color: var(--sl-color-gray-2);
+}
+.pz-table tr:last-child td {
+	border-bottom: none;
+}
+.pz-table code {
+	font-size: 0.9em;
+	padding: 0.05em 0.3em;
+	border-radius: 4px;
+	background: var(--sl-color-bg-inline-code);
+}

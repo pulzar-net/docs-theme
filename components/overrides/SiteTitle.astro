@@ -1,0 +1,28 @@
+---
+/*
+ * The site title: the Pulzar mark, the project's name, and a switcher to
+ * the other projects in the family. Replaces Starlight's SiteTitle.
+ */
+import Default from '@astrojs/starlight/components/SiteTitle.astro';
+import ProjectSwitcher from '../ProjectSwitcher.astro';
+---
+
+<div class="pz-site-title">
+	<Default />
+	<ProjectSwitcher />
+</div>
+
+<style>
+	.pz-site-title {
+		display: flex;
+		align-items: center;
+		gap: 0.25rem;
+		min-width: 0;
+	}
+	.pz-site-title :global(.site-title) {
+		font-family: var(--pz-font-display);
+		font-weight: 600;
+		color: var(--sl-color-white);
+		gap: 0.55rem;
+	}
+</style>

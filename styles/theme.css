@@ -1,0 +1,197 @@
+/*
+ * Pulzar docs theme: Starlight's variables, set from the Pulzr console's
+ * design tokens (parkeze.net/console/src/index.css), so the docs and the
+ * product look like one family. Light and dark, as the console has them.
+ */
+
+:root {
+	/* Type: Inter for text, Outfit for headings, as in the console. */
+	--sl-font: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--pz-font-display: 'Outfit', 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--sl-font-mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, Consolas, monospace;
+
+	--pz-radius-sm: 6px;
+	--pz-radius-md: 10px;
+	--pz-radius-lg: 14px;
+
+	/* Status colors for badges, shared by every component. */
+	--pz-status-tested: #10b981;
+	--pz-status-expected: #3b82f6;
+	--pz-status-progress: #f59e0b;
+	--pz-status-planned: #8b5cf6;
+	--pz-status-unsupported: #94a3b8;
+	--pz-status-error: #ef4444;
+}
+
+/* Dark (Starlight's default): the console's html.dark tokens. */
+:root {
+	--sl-color-accent-low: #063b2c;
+	--sl-color-accent: #34d399;
+	--sl-color-accent-high: #a7f3d0;
+	--sl-color-white: #ffffff;
+	--sl-color-gray-1: #e8edf5;
+	--sl-color-gray-2: #c3cddb;
+	--sl-color-gray-3: #8b99b0;
+	--sl-color-gray-4: #5b6a82;
+	--sl-color-gray-5: #2a3a4e;
+	--sl-color-gray-6: #141a27;
+	--sl-color-black: #0c111d;
+
+	--sl-color-bg: #0c111d;
+	--sl-color-bg-nav: #0c111d;
+	--sl-color-bg-sidebar: #0c111d;
+	--sl-color-bg-inline-code: #1c2333;
+	--sl-color-hairline-light: #2a3a4e;
+	--sl-color-hairline: #1e2a3a;
+	--sl-color-hairline-shade: #05080e;
+	--sl-color-backdrop-overlay: rgba(5, 8, 14, 0.7);
+
+	--pz-card-bg: #141a27;
+	--pz-card-border: #1e2a3a;
+	--pz-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
+	--pz-card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
+	--pz-text-secondary: #8b99b0;
+	--pz-violet: #a78bfa;
+	--pz-glow: rgba(139, 92, 246, 0.22);
+}
+
+/* Light: the console's :root tokens. */
+:root[data-theme='light'] {
+	--sl-color-accent-low: #d1fae5;
+	--sl-color-accent: #059669;
+	--sl-color-accent-high: #065f46;
+	--sl-color-white: #0f172a;
+	--sl-color-gray-1: #1e293b;
+	--sl-color-gray-2: #334155;
+	--sl-color-gray-3: #475569;
+	--sl-color-gray-4: #94a3b8;
+	--sl-color-gray-5: #cbd5e1;
+	--sl-color-gray-6: #f1f5f9;
+	--sl-color-gray-7: #f8fafc;
+	--sl-color-black: #ffffff;
+
+	--sl-color-bg: #ffffff;
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #ffffff;
+	--sl-color-bg-inline-code: #f1f5f9;
+	--sl-color-hairline-light: #e2e8f0;
+	--sl-color-hairline: #e2e8f0;
+	--sl-color-hairline-shade: #cbd5e1;
+	--sl-color-backdrop-overlay: rgba(227, 232, 239, 0.7);
+
+	--pz-card-bg: #ffffff;
+	--pz-card-border: #e2e8f0;
+	--pz-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
+	--pz-card-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+	--pz-text-secondary: #475569;
+	--pz-violet: #7c3aed;
+	--pz-glow: rgba(124, 58, 237, 0.12);
+}
+
+/* Headings in the display face, tight like the console's page titles. */
+.sl-markdown-content :is(h1, h2, h3),
+h1#_top,
+.pz-display {
+	font-family: var(--pz-font-display);
+	letter-spacing: -0.01em;
+}
+h1#_top {
+	font-weight: 600;
+}
+.sl-markdown-content :is(h2, h3) {
+	font-weight: 600;
+}
+
+/* Hairline header and sidebar, as in the console. */
+.header {
+	border-bottom: 1px solid var(--sl-color-hairline);
+	backdrop-filter: saturate(1.4) blur(10px);
+}
+:root[data-has-sidebar] .sidebar-pane {
+	border-inline-end: 1px solid var(--sl-color-hairline);
+}
+
+/* Sidebar: the current page in the accent, rounded like console controls. */
+.sidebar-content a[aria-current='page'] {
+	background: var(--sl-color-accent-low);
+	color: var(--sl-color-accent-high);
+	font-weight: 600;
+	border-radius: var(--pz-radius-sm);
+}
+.sidebar-content a {
+	border-radius: var(--pz-radius-sm);
+}
+
+/* Tables: card-like, with the console's borders and a quiet header. */
+.sl-markdown-content table {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--pz-card-border);
+	border-radius: var(--pz-radius-md);
+	overflow: hidden;
+	font-size: var(--sl-text-sm);
+}
+.sl-markdown-content :is(th, td) {
+	border: none;
+	border-bottom: 1px solid var(--pz-card-border);
+	padding: 0.55rem 0.8rem;
+	vertical-align: top;
+}
+.sl-markdown-content tr:last-child td {
+	border-bottom: none;
+}
+.sl-markdown-content th {
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-gray-2);
+	font-weight: 600;
+	text-align: start;
+}
+:root[data-theme='light'] .sl-markdown-content th {
+	background: var(--sl-color-gray-7);
+}
+/* Wide tables scroll inside their own box on phones. */
+@media (max-width: 50rem) {
+	.sl-markdown-content table {
+		display: block;
+		overflow-x: auto;
+	}
+}
+
+/* Inline code and code blocks: the console's radii. */
+.sl-markdown-content :not(pre) > code {
+	border-radius: 5px;
+	padding: 0.1em 0.35em;
+}
+.expressive-code .frame {
+	--ec-brdRad: var(--pz-radius-md);
+}
+
+/* Asides take the console's status colors. */
+.starlight-aside {
+	border-radius: var(--pz-radius-md);
+}
+
+/* Links in prose: accent, underline on hover only. */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+	text-underline-offset: 0.18em;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: currentColor;
+}
+
+/* Search button: a console-style control. */
+site-search button[data-open-modal] {
+	border-radius: var(--pz-radius-md);
+}
+
+/* A page with a Hero (on the splash template) shows the hero as its title:
+   the page title panel above it goes. The hero has its own <h1>. */
+main:has(.pz-hero) .content-panel:has(> .sl-container > h1#_top) {
+	display: none;
+}
+main:has(.pz-hero) .content-panel {
+	border-top: none;
+}

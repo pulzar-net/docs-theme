@@ -1,0 +1,25 @@
+---
+title: '{{project}}'
+description: '{{description}}'
+template: splash
+---
+
+import { Hero, Features } from '@pulzar-net/docs-theme/components';
+
+<Hero
+	eyebrow="Pulzar open source"
+	title="{{project}}"
+	tagline="{{description}}"
+	actions={[
+		{ text: 'Get started', link: '/{{project}}/getting-started.html', icon: 'right-arrow' },
+		{ text: 'GitHub', link: 'https://github.com/pulzar-net/{{project}}', variant: 'minimal', icon: 'github' },
+	]}
+/>
+
+<Features
+	items={[
+		{ title: 'First feature', body: 'What it does, in one sentence.', icon: 'star' },
+		{ title: 'Second feature', body: 'What it does, in one sentence.', icon: 'setting' },
+		{ title: 'Third feature', body: 'What it does, in one sentence.', icon: 'rocket' },
+	]}
+/>

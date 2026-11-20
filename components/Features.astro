@@ -1,0 +1,78 @@
+---
+/*
+ * Feature cards in a responsive grid. `items` is a list of
+ * { title, body, icon? } (icon: a Starlight icon name).
+ */
+import { Icon } from '@astrojs/starlight/components';
+interface Item {
+	title: string;
+	body: string;
+	icon?: string;
+	link?: string;
+}
+interface Props {
+	items: Item[];
+}
+const { items } = Astro.props;
+---
+
+<div class="pz-features not-content">
+	{items.map((item) => {
+		const Tag = item.link ? 'a' : 'div';
+		return (
+			<Tag class="card" href={item.link}>
+				{item.icon && <span class="icon"><Icon name={item.icon as any} size="1.25rem" /></span>}
+				<h3>{item.title}</h3>
+				<p>{item.body}</p>
+			</Tag>
+		);
+	})}
+</div>
+
+<style>
+	.pz-features {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+		gap: 1rem;
+		margin: 1.5rem 0;
+	}
+	.card {
+		display: block;
+		padding: 1.15rem 1.2rem;
+		background: var(--pz-card-bg);
+		border: 1px solid var(--pz-card-border);
+		border-radius: var(--pz-radius-lg);
+		box-shadow: var(--pz-card-shadow);
+		text-decoration: none;
+		color: inherit;
+		transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
+	}
+	a.card:hover {
+		box-shadow: var(--pz-card-shadow-hover);
+		border-color: color-mix(in srgb, var(--sl-color-accent) 40%, var(--pz-card-border));
+		transform: translateY(-1px);
+	}
+	.icon {
+		display: inline-grid;
+		place-items: center;
+		width: 2.1rem;
+		height: 2.1rem;
+		margin-bottom: 0.7rem;
+		border-radius: var(--pz-radius-md);
+		color: var(--sl-color-accent);
+		background: var(--sl-color-accent-low);
+	}
+	h3 {
+		margin: 0;
+		font-family: var(--pz-font-display);
+		font-size: var(--sl-text-lg);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+	p {
+		margin: 0.4rem 0 0;
+		font-size: var(--sl-text-sm);
+		line-height: 1.55;
+		color: var(--pz-text-secondary);
+	}
+</style>

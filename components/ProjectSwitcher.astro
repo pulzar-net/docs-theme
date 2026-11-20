@@ -1,0 +1,118 @@
+---
+/*
+ * A menu of the Pulzar open-source projects, from projects.mjs. A plain
+ * <details> element: works without JavaScript, by keyboard, and on phones.
+ */
+import site from 'virtual:pulzar-docs/site';
+const current = site.project;
+---
+
+<details class="pz-switcher">
+	<summary aria-label="Other Pulzar projects">
+		<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
+	</summary>
+	<div class="pz-menu" role="menu">
+		<p class="pz-menu-label">Pulzar open source</p>
+		{site.projects.map((p) => (
+			<a role="menuitem" href={p.url} class:list={{ current: p.id === current }} aria-current={p.id === current ? 'page' : undefined}>
+				<span class="name">{p.name}</span>
+				<span class="desc">{p.description}</span>
+			</a>
+		))}
+	</div>
+</details>
+
+<script>
+	// Close the menu on a click outside it or on Escape.
+	for (const d of document.querySelectorAll<HTMLDetailsElement>('.pz-switcher')) {
+		document.addEventListener('click', (e) => {
+			if (d.open && !d.contains(e.target as Node)) d.open = false;
+		});
+		d.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape') {
+				d.open = false;
+				d.querySelector('summary')?.focus();
+			}
+		});
+	}
+</script>
+
+<style>
+	.pz-switcher {
+		position: relative;
+		flex-shrink: 0;
+	}
+	summary {
+		list-style: none;
+		display: grid;
+		place-items: center;
+		width: 1.9rem;
+		height: 1.9rem;
+		border-radius: var(--pz-radius-sm);
+		color: var(--sl-color-gray-3);
+		cursor: pointer;
+	}
+	summary::-webkit-details-marker {
+		display: none;
+	}
+	summary:hover,
+	.pz-switcher[open] summary {
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-white);
+	}
+	summary:focus-visible {
+		outline: 2px solid var(--sl-color-accent);
+		outline-offset: 1px;
+	}
+	/* Fixed, so the header's title wrapper (which clips long titles) does not
+	   clip the menu; the header's backdrop filter makes it the containing
+	   block, so this is the header's top left. */
+	.pz-menu {
+		position: fixed;
+		top: calc(var(--sl-nav-height) - 0.25rem);
+		inset-inline-start: var(--sl-nav-pad-x);
+		z-index: 100;
+		width: min(22rem, calc(100vw - 2rem));
+		padding: 0.4rem;
+		background: var(--pz-card-bg);
+		border: 1px solid var(--pz-card-border);
+		border-radius: var(--pz-radius-lg);
+		box-shadow: var(--pz-card-shadow-hover);
+	}
+	.pz-menu-label {
+		margin: 0.35rem 0.6rem 0.4rem;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		color: var(--sl-color-gray-3);
+	}
+	.pz-menu a {
+		display: grid;
+		gap: 0.1rem;
+		padding: 0.5rem 0.6rem;
+		border-radius: var(--pz-radius-md);
+		text-decoration: none;
+		color: var(--sl-color-white);
+	}
+	.pz-menu a:hover,
+	.pz-menu a:focus-visible {
+		background: var(--sl-color-gray-6);
+		outline: none;
+	}
+	.pz-menu a.current {
+		background: var(--sl-color-accent-low);
+	}
+	.pz-menu a.current .name {
+		color: var(--sl-color-accent-high);
+	}
+	.name {
+		font-weight: 600;
+		font-size: var(--sl-text-sm);
+	}
+	.desc {
+		font-size: var(--sl-text-xs);
+		color: var(--pz-text-secondary);
+		line-height: 1.35;
+	}
+</style>

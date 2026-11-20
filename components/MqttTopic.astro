@@ -1,0 +1,93 @@
+---
+/*
+ * One MQTT topic: the topic, which way it goes, whether it is retained, what
+ * it is for (the slot), and an example payload.
+ *
+ *   <MqttTopic topic="zigbee/<device>/set" direction="in" example='{"state": "ON"}'>
+ *     Switch a device.
+ *   </MqttTopic>
+ */
+import { Code } from '@astrojs/starlight/components';
+interface Props {
+	topic: string;
+	direction: 'in' | 'out' | 'both';
+	retained?: boolean;
+	example?: string;
+	exampleLang?: string;
+}
+const { topic, direction, retained = false, example, exampleLang } = Astro.props;
+const dir = { in: 'Subscribed', out: 'Published', both: 'Both ways' }[direction];
+let pretty = example;
+let lang = exampleLang;
+if (example && !exampleLang) {
+	try {
+		pretty = JSON.stringify(JSON.parse(example), null, 2);
+		lang = 'json';
+	} catch {
+		lang = 'text';
+	}
+}
+const id = topic.replace(/[^a-zA-Z0-9]+/g, '-').replace(/^-|-$/g, '').toLowerCase();
+---
+
+<section class="pz-topic not-content" id={`topic-${id}`}>
+	<header>
+		<code class="topic">{topic}</code>
+		<span class:list={['dir', direction]}>{direction === 'in' ? '→ ' : direction === 'out' ? '← ' : '⇄ '}{dir}</span>
+		{retained && <span class="retained">Retained</span>}
+	</header>
+	<div class="body"><slot /></div>
+	{pretty && <Code code={pretty} lang={lang} />}
+</section>
+
+<style>
+	.pz-topic {
+		margin: 1rem 0;
+		padding: 0.85rem 0.95rem;
+		background: var(--pz-card-bg);
+		border: 1px solid var(--pz-card-border);
+		border-radius: var(--pz-radius-lg);
+		box-shadow: var(--pz-card-shadow);
+	}
+	header {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.4rem 0.6rem;
+	}
+	.topic {
+		font-family: var(--sl-font-mono);
+		font-size: var(--sl-text-sm);
+		font-weight: 600;
+		color: var(--sl-color-white);
+		word-break: break-all;
+	}
+	.dir,
+	.retained {
+		padding: 0.05rem 0.5rem;
+		border-radius: 999px;
+		font-size: var(--sl-text-xs);
+		font-weight: 600;
+		border: 1px solid var(--pz-card-border);
+		color: var(--pz-text-secondary);
+	}
+	.dir.in {
+		color: var(--sl-color-accent);
+		border-color: color-mix(in srgb, var(--sl-color-accent) 35%, transparent);
+	}
+	.dir.out {
+		color: var(--pz-status-expected);
+		border-color: color-mix(in srgb, var(--pz-status-expected) 35%, transparent);
+	}
+	.body {
+		margin: 0.5rem 0 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+	.body :global(p) {
+		margin: 0;
+	}
+	.pz-topic :global(.expressive-code) {
+		margin-top: 0.7rem;
+	}
+</style>

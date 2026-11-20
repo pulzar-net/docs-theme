@@ -1,0 +1,30 @@
+---
+title: docs-theme
+description: One look for every Pulzar open-source project.
+template: splash
+---
+
+import { Hero, Features, ReleaseDownload } from '../../../../components/index.mjs';
+
+<Hero
+	eyebrow="Pulzar open source"
+	title="docs-theme"
+	tagline="One Starlight theme for every Pulzar project: the brand, the shared chrome, and components for the pages every project needs."
+	actions={[
+		{ text: 'Get started', link: '/docs-theme/guides/getting-started.html', icon: 'right-arrow' },
+		{ text: 'Components', link: '/docs-theme/components.html', variant: 'minimal' },
+	]}
+/>
+
+<Features
+	items={[
+		{ title: 'Brand', body: 'The Pulzr mark, colors and type from the console, light and dark.', icon: 'star' },
+		{ title: 'Shared chrome', body: 'A project switcher across the family, the footer, edit links and search.', icon: 'list-format' },
+		{ title: 'Components', body: 'Hero, feature cards, status matrix, hardware tables, release downloads, MQTT topics.', icon: 'puzzle' },
+		{ title: 'One command', body: 'A starter with the docs layout, the Pages workflow and the CI checks.', icon: 'rocket' },
+	]}
+/>
+
+## Install a release
+
+<ReleaseDownload repo="pulzar-net/zwave-bridge" version="0.2.0" binary="zwave-bridge" />

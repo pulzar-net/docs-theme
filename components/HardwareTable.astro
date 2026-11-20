@@ -1,0 +1,65 @@
+---
+/*
+ * A hardware table with tested/expected/unsupported badges. `rows` is a list
+ * of objects; `columns` names the keys to show, in order, with their
+ * headings. A row's `status` gets a badge; `note` is shown under the status.
+ *
+ *   <HardwareTable
+ *     columns={[['name', 'Coordinator'], ['chip', 'Chip'], ['firmware', 'Firmware']]}
+ *     rows={[{ name: 'Sonoff ZBDongle-E', chip: 'EFR32MG21', firmware: 'EmberZNet 7.4+', status: 'expected' }]}
+ *   />
+ */
+import StatusBadge from './StatusBadge.astro';
+interface Props {
+	columns: [string, string][];
+	rows: Record<string, string>[];
+	caption?: string;
+}
+const { columns, rows, caption } = Astro.props;
+---
+
+<div class="pz-table-wrap not-content">
+	<table class="pz-table">
+		{caption && <caption>{caption}</caption>}
+		<thead>
+			<tr>
+				{columns.map(([, heading]) => <th scope="col">{heading}</th>)}
+				<th scope="col">State</th>
+			</tr>
+		</thead>
+		<tbody>
+			{rows.map((row) => (
+				<tr>
+					{columns.map(([key], i) => (i === 0 ? <th scope="row" class="first" set:html={row[key] ?? ''} /> : <td set:html={row[key] ?? ''} />))}
+					<td class="state">
+						<StatusBadge status={row.status} />
+						{row.note && <span class="note" set:html={row.note} />}
+					</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+</div>
+
+<style>
+	@import './table.css';
+	.first {
+		background: none;
+		color: var(--sl-color-white);
+		font-weight: 600;
+		white-space: normal;
+		border-bottom: 1px solid var(--pz-card-border);
+	}
+	tr:last-child .first {
+		border-bottom: none;
+	}
+	.state {
+		min-width: 9rem;
+	}
+	.note {
+		display: block;
+		margin-top: 0.3rem;
+		font-size: var(--sl-text-xs);
+		color: var(--pz-text-secondary);
+	}
+</style>
