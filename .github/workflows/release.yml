@@ -1,5 +1,5 @@
 # A v* tag publishes @pulzr/docs-theme to npm, with provenance, and makes
-# the GitHub release from the tag's CHANGELOG section.
+# the GitHub release with the annotated tag's message as its notes.
 #
 # npm is reached by OIDC as this repository's trusted publisher, so no token
 # is stored. npm attaches a trusted publisher only to a package that exists:
@@ -47,19 +47,31 @@ jobs:
           else
             npm publish --provenance --access public
           fi
-      - name: GitHub release, with the CHANGELOG's notes
+      - name: Release notes from the tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          # The annotated tag's message (git tag -a vX.Y.Z --cleanup=whitespace
+          # -F notes.md), else GitHub's generated notes; never none.
+          set -euo pipefail
+          notes="${RUNNER_TEMP}/notes.md"
+          git fetch -q --force origin "refs/tags/${TAG}:refs/tags/${TAG}"
+          : > "${notes}"
+          if [ "$(git cat-file -t "refs/tags/${TAG}")" = tag ]; then
+            git cat-file tag "refs/tags/${TAG}" | sed '1,/^$/d; /^-----BEGIN [A-Z ]*SIGNATURE-----$/,$d' > "${notes}"
+          fi
+          if ! awk -v t="${TAG}" 'NF && $0 != t { f = 1 } END { exit !f }' "${notes}"; then
+            gh api "repos/${GITHUB_REPOSITORY}/releases/generate-notes" -f tag_name="${TAG}" -q .body > "${notes}"
+            awk 'NF && !/Full Changelog/ { f = 1 } END { exit !f }' "${notes}" || {
+              echo "::error::${TAG} has no release notes: tag it with git tag -a and the notes as its message"; exit 1; }
+          fi
+      - name: GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          version="${GITHUB_REF_NAME#v}"
-          awk -v v="$version" '
-            $0 ~ "^## \\[" v "\\]" { on = 1; next }
-            on && /^## \[/ { exit }
-            on { print }
-          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
-          test -s "$RUNNER_TEMP/notes.md"
           if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
             echo "release $GITHUB_REF_NAME exists"
           else
-            gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file "$RUNNER_TEMP/notes.md"
+            gh release create "$GITHUB_REF_NAME" --verify-tag --title "$GITHUB_REF_NAME" --notes-file "${RUNNER_TEMP}/notes.md"
           fi

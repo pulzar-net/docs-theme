@@ -18,6 +18,11 @@ export default defineConfig({
 			plugins: pulzarPlugins({ project: '{{project}}' }),
 			sidebar: [
 				{ label: 'User guide', items: ['getting-started'] },
+				// What changed is in the GitHub releases: no changelog file.
+				{
+					label: 'Project',
+					items: [{ label: 'Releases', link: 'https://github.com/pulzar-net/{{project}}/releases' }],
+				},
 			],
 		}),
 	],

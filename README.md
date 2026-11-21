@@ -151,10 +151,13 @@ npm run dev      # the demo site, with every component
 npm run build
 ```
 
-To release, set `version` in `package.json`, add its section to
-[CHANGELOG.md](CHANGELOG.md), and push the tag `vX.Y.Z` on main. The
-release workflow publishes `@pulzr/docs-theme` to npm with provenance and
-makes the GitHub release from the changelog. Sites pin an exact version and
+To release, set `version` in `package.json` and push an annotated tag
+`vX.Y.Z` on main whose message is the release notes
+(`git tag -a vX.Y.Z --cleanup=whitespace -F notes.md`). The release
+workflow publishes `@pulzr/docs-theme` to npm with provenance and makes the
+GitHub release with those notes. There is no changelog file: what changed is
+in the [releases](https://github.com/pulzar-net/docs-theme/releases). New
+sites from the starter link there too. Sites pin an exact version and
 move to a new one with a one-line change.
 
 ## License
