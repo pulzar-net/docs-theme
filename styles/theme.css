@@ -1,20 +1,37 @@
 /*
- * Pulzar docs theme: Starlight's variables, set from the Pulzr console's
- * design tokens (parkeze.net/console/src/index.css), so the docs and the
- * product look like one family. Light and dark, as the console has them.
+ * Pulzar docs theme: dense reference docs. IBM Plex Sans for text and
+ * IBM Plex Mono for code and identifiers, small steps in the type scale,
+ * hairlines instead of shadows, and the Pulzr console's emerald as the one
+ * accent. Light and dark are both first-class.
  */
 
 :root {
-	/* Type: Inter for text, Outfit for headings, as in the console. */
-	--sl-font: 'Inter Variable', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-	--pz-font-display: 'Outfit', 'Inter Variable', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-	--sl-font-mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, Consolas, monospace;
+	--sl-font: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+	--sl-font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	/* Components written for the earlier display face use the text face. */
+	--pz-font-display: var(--sl-font);
 
-	--pz-radius-sm: 6px;
-	--pz-radius-md: 10px;
-	--pz-radius-lg: 14px;
+	/* Type: 15px body, small steps between heading levels. */
+	--sl-text-body: 0.9375rem;
+	--sl-text-body-sm: 0.875rem;
+	--sl-line-height: 1.6;
+	--sl-line-height-headings: 1.25;
+	--sl-text-h1: 1.75rem;
+	--sl-text-h2: 1.3125rem;
+	--sl-text-h3: 1.0625rem;
+	--sl-text-h4: 0.9375rem;
+	--sl-text-h5: 0.875rem;
 
-	/* Status colors for badges, shared by every component. */
+	/* Layout: a shorter header, a narrower sidebar, room for tables. */
+	--sl-nav-height: 3.25rem;
+	--sl-sidebar-width: 16.5rem;
+	--sl-content-width: 48rem;
+
+	--pz-radius-sm: 3px;
+	--pz-radius-md: 4px;
+	--pz-radius-lg: 6px;
+
+	/* Status colors, for badges. */
 	--pz-status-tested: #10b981;
 	--pz-status-expected: #3b82f6;
 	--pz-status-progress: #f59e0b;
@@ -23,136 +40,224 @@
 	--pz-status-error: #ef4444;
 }
 
-/* Dark (Starlight's default): the console's html.dark tokens. */
+/* Dark: the console's dark tokens. */
 :root {
-	--sl-color-accent-low: #063b2c;
+	--sl-color-accent-low: #06372a;
 	--sl-color-accent: #34d399;
 	--sl-color-accent-high: #a7f3d0;
-	--sl-color-white: #ffffff;
-	--sl-color-gray-1: #e8edf5;
-	--sl-color-gray-2: #c3cddb;
-	--sl-color-gray-3: #8b99b0;
+	--sl-color-white: #edf1f7;
+	--sl-color-gray-1: #dfe5ee;
+	--sl-color-gray-2: #bcc6d4;
+	--sl-color-gray-3: #8a97ab;
 	--sl-color-gray-4: #5b6a82;
-	--sl-color-gray-5: #2a3a4e;
-	--sl-color-gray-6: #141a27;
+	--sl-color-gray-5: #2a3647;
+	--sl-color-gray-6: #161d2b;
 	--sl-color-black: #0c111d;
 
 	--sl-color-bg: #0c111d;
 	--sl-color-bg-nav: #0c111d;
 	--sl-color-bg-sidebar: #0c111d;
-	--sl-color-bg-inline-code: #1c2333;
-	--sl-color-hairline-light: #2a3a4e;
-	--sl-color-hairline: #1e2a3a;
+	--sl-color-bg-inline-code: #161d2b;
+	--sl-color-hairline-light: #263142;
+	--sl-color-hairline: #1d2636;
 	--sl-color-hairline-shade: #05080e;
 	--sl-color-backdrop-overlay: rgba(5, 8, 14, 0.7);
 
-	--pz-card-bg: #141a27;
-	--pz-card-border: #1e2a3a;
-	--pz-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 2px 6px rgba(0, 0, 0, 0.15);
-	--pz-card-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.3), 0 2px 6px rgba(0, 0, 0, 0.2);
-	--pz-text-secondary: #8b99b0;
-	--pz-violet: #a78bfa;
-	--pz-glow: rgba(139, 92, 246, 0.22);
+	--pz-surface: #121928;
+	--pz-card-bg: #121928;
+	--pz-card-border: #1d2636;
+	--pz-text-secondary: #8a97ab;
+	--pz-code-bg: #0f1522;
+	--pz-menu-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
-/* Light: the console's :root tokens. */
+/* Light. */
 :root[data-theme='light'] {
 	--sl-color-accent-low: #d1fae5;
-	--sl-color-accent: #059669;
-	--sl-color-accent-high: #065f46;
+	--sl-color-accent: #047857;
+	--sl-color-accent-high: #064e3b;
 	--sl-color-white: #0f172a;
 	--sl-color-gray-1: #1e293b;
 	--sl-color-gray-2: #334155;
-	--sl-color-gray-3: #475569;
+	--sl-color-gray-3: #526072;
 	--sl-color-gray-4: #94a3b8;
-	--sl-color-gray-5: #cbd5e1;
-	--sl-color-gray-6: #f1f5f9;
-	--sl-color-gray-7: #f8fafc;
+	--sl-color-gray-5: #d5dce5;
+	--sl-color-gray-6: #eef2f6;
+	--sl-color-gray-7: #f6f8fa;
 	--sl-color-black: #ffffff;
 
 	--sl-color-bg: #ffffff;
 	--sl-color-bg-nav: #ffffff;
-	--sl-color-bg-sidebar: #ffffff;
-	--sl-color-bg-inline-code: #f1f5f9;
-	--sl-color-hairline-light: #e2e8f0;
-	--sl-color-hairline: #e2e8f0;
-	--sl-color-hairline-shade: #cbd5e1;
+	--sl-color-bg-sidebar: #fbfcfd;
+	--sl-color-bg-inline-code: #f1f4f8;
+	--sl-color-hairline-light: #e6eaf0;
+	--sl-color-hairline: #e2e7ee;
+	--sl-color-hairline-shade: #cfd6e0;
 	--sl-color-backdrop-overlay: rgba(227, 232, 239, 0.7);
 
+	--pz-surface: #f6f8fa;
 	--pz-card-bg: #ffffff;
-	--pz-card-border: #e2e8f0;
-	--pz-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.06);
-	--pz-card-shadow-hover: 0 4px 12px -2px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
-	--pz-text-secondary: #475569;
-	--pz-violet: #7c3aed;
-	--pz-glow: rgba(124, 58, 237, 0.12);
+	--pz-card-border: #e2e7ee;
+	--pz-text-secondary: #526072;
+	--pz-code-bg: #f6f8fa;
+	--pz-menu-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
 }
 
-/* Headings in the display face, tight like the console's page titles. */
-.sl-markdown-content :is(h1, h2, h3),
-h1#_top,
-.pz-display {
-	font-family: var(--pz-font-display);
-	letter-spacing: -0.01em;
-}
-h1#_top {
-	font-weight: 600;
-}
-.sl-markdown-content :is(h2, h3) {
-	font-weight: 600;
+/* Identifiers read as code wherever they appear. */
+.pz-mono,
+.sl-markdown-content :is(code, kbd, samp) {
+	font-family: var(--sl-font-mono);
 }
 
-/* Hairline header and sidebar, as in the console. Only the page's header
-   element: Starlight's own header component inside it is also `.header`. */
+/* ---- Header and sidebar ------------------------------------------------ */
+
 header.header {
 	border-bottom: 1px solid var(--sl-color-hairline);
-	backdrop-filter: saturate(1.4) blur(10px);
+	padding-block: 0;
 }
 :root[data-has-sidebar] .sidebar-pane {
 	border-inline-end: 1px solid var(--sl-color-hairline);
 }
+site-search button[data-open-modal] {
+	border-radius: var(--pz-radius-md);
+	font-size: var(--sl-text-sm);
+}
 
-/* Sidebar: the current page in the accent, rounded like console controls. */
-.sidebar-content a[aria-current='page'] {
-	background: var(--sl-color-accent-low);
-	color: var(--sl-color-accent-high);
+/* Groups: sentence case, a quiet weight step above the links. */
+.sidebar-content {
+	font-size: var(--sl-text-sm);
+}
+.sidebar-content .group-label .large,
+.sidebar-content summary .large {
+	font-size: var(--sl-text-sm);
 	font-weight: 600;
-	border-radius: var(--pz-radius-sm);
+	color: var(--sl-color-white);
+}
+.sidebar-content ul ul {
+	border-inline-start-color: var(--sl-color-hairline);
 }
 .sidebar-content a {
+	font-size: 0.8125rem;
+	padding-block: 0.22rem;
 	border-radius: var(--pz-radius-sm);
+	color: var(--sl-color-gray-2);
+}
+.sidebar-content a:hover {
+	color: var(--sl-color-white);
+}
+/* The current page: a bar in the accent, not a filled pill. */
+.sidebar-content a[aria-current='page'],
+.sidebar-content a[aria-current='page']:hover {
+	background: var(--pz-surface);
+	color: var(--sl-color-white);
+	font-weight: 600;
+	box-shadow: inset 2px 0 0 var(--sl-color-accent);
 }
 
-/* Tables: card-like, with the console's borders and a quiet header. */
+/* ---- Page content ------------------------------------------------------- */
+
+h1#_top {
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+.content-panel {
+	padding-block: 1.25rem;
+}
+.sl-markdown-content {
+	font-size: var(--sl-text-body);
+}
+.sl-markdown-content > * + * {
+	margin-top: 0.85rem;
+}
+.sl-markdown-content :is(h2, h3, h4, h5) {
+	font-weight: 600;
+	letter-spacing: -0.005em;
+	color: var(--sl-color-white);
+}
+/* A section starts with a hairline: the page's structure at a glance.
+   Starlight wraps headings in .sl-heading-wrapper for their anchor links. */
+.sl-markdown-content > h2,
+.sl-markdown-content > .sl-heading-wrapper.level-h2 {
+	margin-top: 2.25rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--sl-color-hairline);
+}
+/* Not above the first section, right under the page title. */
+.sl-markdown-content > :is(h2, .sl-heading-wrapper.level-h2):first-child {
+	margin-top: 0;
+	padding-top: 0;
+	border-top: none;
+}
+.sl-markdown-content > :is(h3, .sl-heading-wrapper.level-h3) {
+	margin-top: 1.6rem;
+}
+.sl-markdown-content > :is(h4, .sl-heading-wrapper.level-h4) {
+	margin-top: 1.25rem;
+}
+.sl-markdown-content > :is(h2, h3, h4, .sl-heading-wrapper) + * {
+	margin-top: 0.5rem;
+}
+.sl-markdown-content :is(ul, ol) li + li {
+	margin-top: 0.2rem;
+}
+
+/* Links in prose: accent, underline on hover. */
+.sl-markdown-content a:not(:where(.not-content *)) {
+	color: var(--sl-color-accent);
+	text-decoration-color: color-mix(in srgb, currentColor 30%, transparent);
+	text-underline-offset: 0.18em;
+}
+.sl-markdown-content a:not(:where(.not-content *)):hover {
+	text-decoration-color: currentColor;
+}
+/* A heading that is only a link (Keep a Changelog's `## [1.2.0]`) reads as
+   a heading. */
+.sl-markdown-content :is(h2, h3) > a:only-child:not(:where(.not-content *)) {
+	color: inherit;
+	text-decoration: none;
+}
+.sl-markdown-content :is(h2, h3) > a:only-child:not(:where(.not-content *)):hover {
+	text-decoration: underline;
+	text-decoration-color: var(--sl-color-accent);
+}
+
+/* Inline code: mono on a quiet chip. */
+.sl-markdown-content :not(pre) > code {
+	font-size: 0.85em;
+	padding: 0.08em 0.32em;
+	border: 1px solid var(--sl-color-hairline);
+	border-radius: var(--pz-radius-sm);
+	background: var(--sl-color-bg-inline-code);
+}
+
+/* Tables: hairlines, a quiet header row, compact cells. */
 .sl-markdown-content table {
 	display: table;
 	width: 100%;
 	border-collapse: separate;
 	border-spacing: 0;
-	border: 1px solid var(--pz-card-border);
+	border: 1px solid var(--sl-color-hairline);
 	border-radius: var(--pz-radius-md);
 	overflow: hidden;
 	font-size: var(--sl-text-sm);
+	line-height: 1.5;
 }
 .sl-markdown-content :is(th, td) {
 	border: none;
-	border-bottom: 1px solid var(--pz-card-border);
-	padding: 0.55rem 0.8rem;
+	border-bottom: 1px solid var(--sl-color-hairline);
+	padding: 0.4rem 0.65rem;
 	vertical-align: top;
 }
 .sl-markdown-content tr:last-child td {
 	border-bottom: none;
 }
 .sl-markdown-content th {
-	background: var(--sl-color-gray-6);
+	background: var(--pz-surface);
 	color: var(--sl-color-gray-2);
 	font-weight: 600;
 	text-align: start;
+	white-space: nowrap;
 }
-:root[data-theme='light'] .sl-markdown-content th {
-	background: var(--sl-color-gray-7);
-}
-/* Wide tables scroll inside their own box on phones. */
 @media (max-width: 50rem) {
 	.sl-markdown-content table {
 		display: block;
@@ -160,47 +265,44 @@ header.header {
 	}
 }
 
-/* A heading that is only a link (Keep a Changelog's `## [1.2.0]`) reads as
-   a heading; it underlines on hover. */
-.sl-markdown-content :is(h2, h3) > a:only-child {
-	color: inherit;
-	text-decoration: none;
-}
-.sl-markdown-content :is(h2, h3) > a:only-child:hover {
-	text-decoration: underline;
-	text-decoration-color: var(--sl-color-accent);
-}
-
-/* Inline code and code blocks: the console's radii. */
-.sl-markdown-content :not(pre) > code {
-	border-radius: 5px;
-	padding: 0.1em 0.35em;
-}
-.expressive-code .frame {
-	--ec-brdRad: var(--pz-radius-md);
-}
-
-/* Asides take the console's status colors. */
+/* Asides: the variant's color as a bar, a faint tint, compact. */
 .starlight-aside {
+	border-radius: 0 var(--pz-radius-md) var(--pz-radius-md) 0;
+	border-inline-start-width: 3px;
+	padding: 0.6rem 0.85rem;
+	font-size: var(--sl-text-sm);
+	background: color-mix(in srgb, var(--sl-color-asides-border) 7%, var(--sl-color-bg));
+}
+.starlight-aside__title {
+	font-size: var(--sl-text-sm);
+}
+
+/* Buttons: small and square-ish, like the console's. */
+.sl-link-button {
 	border-radius: var(--pz-radius-md);
+	font-size: var(--sl-text-sm);
+	padding: 0.4rem 0.85rem;
+	font-weight: 500;
 }
 
-/* Links in prose: accent, underline on hover only. */
-.sl-markdown-content a:not(:where(.not-content *)) {
-	text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
-	text-underline-offset: 0.18em;
-}
-.sl-markdown-content a:not(:where(.not-content *)):hover {
-	text-decoration-color: currentColor;
-}
-
-/* Search button: a console-style control. */
-site-search button[data-open-modal] {
+/* Previous and next: compact. */
+.pagination-links a {
 	border-radius: var(--pz-radius-md);
+	box-shadow: none;
+	padding: 0.65rem 0.85rem;
+	font-size: var(--sl-text-sm);
+}
+.pagination-links a .link-title {
+	font-size: var(--sl-text-base);
 }
 
-/* A page with a Hero (on the splash template) shows the hero as its title:
-   the page title panel above it goes. The hero has its own <h1>. */
+/* On this page: small, the current heading in the accent. */
+starlight-toc nav,
+mobile-starlight-toc nav {
+	font-size: 0.8125rem;
+}
+
+/* A page with a Hero shows the hero as its title. */
 main:has(.pz-hero) .content-panel:has(> .sl-container > h1#_top) {
 	display: none;
 }
@@ -210,36 +312,59 @@ main:has(.pz-hero) .content-panel {
 
 /* A page that embeds a whole Markdown file (a changelog, a format spec) in
    <div class="pz-included">: the file's own H1 repeats the page title, and a
-   README's badge line belongs on GitHub, so both go. */
+   README's badge line belongs on GitHub. */
 .pz-included > h1:first-child,
 .pz-included > h1:first-child + p:has(> a > img) {
 	display: none;
 }
 
-/* Status badges: the StatusBadge component, and a status word in a
-   Markdown table's State or Status column (status-badges.mjs). */
+/* ---- Marks: a logo the owner allows, or the owner's word ---------------- */
+
+.pz-mark {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35em;
+	white-space: nowrap;
+	vertical-align: middle;
+	line-height: 1.2;
+}
+.pz-mark img {
+	height: 1.15em;
+	width: auto;
+	flex-shrink: 0;
+}
+.pz-mark .light,
+:root[data-theme='light'] .pz-mark .dark {
+	display: none;
+}
+:root[data-theme='light'] .pz-mark .light {
+	display: inline;
+}
+
+/* ---- Status badges ------------------------------------------------------ */
+
 .pz-badge {
 	--c: var(--pz-status-expected);
 	display: inline-flex;
 	align-items: center;
 	gap: 0.35em;
-	padding: 0.12em 0.6em;
-	border-radius: 999px;
+	padding: 0.05em 0.45em;
+	border-radius: var(--pz-radius-sm);
 	font-size: var(--sl-text-xs);
-	font-weight: 600;
+	font-weight: 500;
 	line-height: 1.5;
 	white-space: nowrap;
-	color: color-mix(in srgb, var(--c) 80%, var(--sl-color-white));
-	background: color-mix(in srgb, var(--c) 14%, transparent);
-	border: 1px solid color-mix(in srgb, var(--c) 30%, transparent);
+	color: color-mix(in srgb, var(--c) 78%, var(--sl-color-white));
+	background: color-mix(in srgb, var(--c) 12%, transparent);
+	border: 1px solid color-mix(in srgb, var(--c) 28%, transparent);
 }
 :root[data-theme='light'] .pz-badge {
-	color: color-mix(in srgb, var(--c) 75%, #000);
+	color: color-mix(in srgb, var(--c) 70%, #000);
 }
 .pz-badge::before {
 	content: '';
-	width: 0.45em;
-	height: 0.45em;
+	width: 0.42em;
+	height: 0.42em;
 	border-radius: 50%;
 	background: var(--c);
 }
@@ -249,3 +374,9 @@ main:has(.pz-hero) .content-panel {
 .pz-tone-planned { --c: var(--pz-status-planned); }
 .pz-tone-unsupported { --c: var(--pz-status-unsupported); }
 .pz-tone-error { --c: var(--pz-status-error); }
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
+}

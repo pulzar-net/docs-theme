@@ -47,7 +47,7 @@ const releaseUrl = `https://github.com/${repo}/releases/tag/v${version}`;
 
 <div class="pz-release not-content">
 	<div class="head">
-		<span class="label">Latest release</span>
+		<span class="label">Release</span>
 		<a class="version" href={releaseUrl}>v{version}</a>
 		<span class="archs">{archs.map((a) => <span title={a.label}>{a.arch}</span>)}</span>
 	</div>
@@ -61,32 +61,32 @@ const releaseUrl = `https://github.com/${repo}/releases/tag/v${version}`;
 <style>
 	.pz-release {
 		margin: 1.25rem 0;
-		padding: 0.9rem;
-		background: var(--pz-card-bg);
-		border: 1px solid var(--pz-card-border);
-		border-radius: var(--pz-radius-lg);
-		box-shadow: var(--pz-card-shadow);
+		padding: 0.75rem;
+		background: var(--pz-surface);
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: var(--pz-radius-md);
 	}
 	.head {
 		display: flex;
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem 0.75rem;
-		margin-bottom: 0.75rem;
+		margin-bottom: 0.6rem;
 	}
 	.label {
-		font-size: var(--sl-text-xs);
+		font-size: var(--sl-text-sm);
 		font-weight: 600;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-		color: var(--sl-color-gray-3);
+		color: var(--sl-color-white);
 	}
 	.version {
-		font-family: var(--pz-font-display);
-		font-weight: 600;
-		font-size: var(--sl-text-lg);
+		font-family: var(--sl-font-mono);
+		font-weight: 500;
+		font-size: var(--sl-text-sm);
 		color: var(--sl-color-accent);
 		text-decoration: none;
+	}
+	.version:hover {
+		text-decoration: underline;
 	}
 	.archs {
 		display: flex;
@@ -95,11 +95,11 @@ const releaseUrl = `https://github.com/${repo}/releases/tag/v${version}`;
 	}
 	.archs span {
 		padding: 0.05rem 0.45rem;
-		border-radius: 999px;
+		border-radius: var(--pz-radius-sm);
 		font-size: var(--sl-text-xs);
 		font-family: var(--sl-font-mono);
 		color: var(--pz-text-secondary);
-		border: 1px solid var(--pz-card-border);
+		border: 1px solid var(--sl-color-hairline-light);
 	}
 	.check {
 		display: flex;
@@ -116,7 +116,8 @@ const releaseUrl = `https://github.com/${repo}/releases/tag/v${version}`;
 	.check code {
 		font-size: 0.95em;
 		padding: 0.05em 0.3em;
-		border-radius: 4px;
+		border-radius: var(--pz-radius-sm);
 		background: var(--sl-color-bg-inline-code);
+		font-family: var(--sl-font-mono);
 	}
 </style>

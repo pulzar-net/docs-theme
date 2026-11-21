@@ -14,9 +14,18 @@ starter that gives a new project its docs site in one command.
 
 ## What it provides
 
-- **Brand.** The Pulzr mark, and colors and type from the Pulzr console's
-  design tokens (Inter for text, Outfit for headings, the console's surfaces
-  and accent), light and dark.
+- **A compact, technical look.** Dense reference docs: IBM Plex Sans for text
+  and IBM Plex Mono for code and identifiers, small steps in the type scale,
+  hairlines instead of shadows, and the Pulzr console's emerald as the one
+  accent, in light and dark.
+- **Logos where we name a real thing, under each owner's rules.**
+  [`marks.mjs`](marks.mjs) lists every language, protocol, registry and
+  platform the sites name. Where an owner's policy allows our use, its own
+  logo file is shown unmodified (Rust, Python, GitHub, Starlight); elsewhere
+  the name is shown with the owner's trademark symbol. Every site gets a
+  **Trademarks and attributions** page (`attributions.html`), linked from the
+  footer, with each owner's notice and the files' credits. Never use an icon
+  that redraws a logo, such as Starlight's `seti:rust` or `github` icons.
 - **Shared chrome.** A project switcher across the family
   ([`projects.mjs`](projects.mjs)), a footer with "Maintained by Pulzar", the
   license and the security reporting link, edit links to the page's source,
@@ -28,8 +37,9 @@ starter that gives a new project its docs site in one command.
 
 | Component | For |
 |---|---|
-| `Hero` | a landing page's title, pitch and calls to action |
-| `Features` | feature cards in a responsive grid |
+| `Hero` | a landing page's name, one line, the project's stack from `projects.mjs`, and actions |
+| `Features` | a compact grid of what a project does; each entry takes a generic `icon` or a `mark` |
+| `Mark` | a language, protocol, registry or platform: its logo where allowed, else its name |
 | `StatusBadge` | a tested, expected, in progress, planned or unsupported pill |
 | `StatusMatrix` | a feature matrix with status badges and versions |
 | `HardwareTable` | hardware with tested, expected and unsupported badges |

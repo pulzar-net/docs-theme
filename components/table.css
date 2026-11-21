@@ -5,7 +5,6 @@
 	border: 1px solid var(--pz-card-border);
 	border-radius: var(--pz-radius-md);
 	background: var(--pz-card-bg);
-	box-shadow: var(--pz-card-shadow);
 }
 .pz-table {
 	width: 100%;

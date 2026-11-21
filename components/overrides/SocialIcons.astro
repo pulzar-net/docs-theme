@@ -1,0 +1,32 @@
+---
+/*
+ * The header's links. GitHub's shows GitHub's own Invertocat file (its brand
+ * guidelines allow it to link to GitHub); others keep Starlight's icons.
+ */
+import { Icon } from '@astrojs/starlight/components';
+import config from 'virtual:starlight/user-config';
+import Mark from '../Mark.astro';
+const links = config.social ?? [];
+---
+
+{links.length > 0 && links.map(({ label, href, icon }) => (
+	<a href={href} rel="me" class="sl-flex pz-social">
+		<span class="sr-only">{label}</span>
+		{icon === 'github' ? <Mark id="github" name={false} decorative /> : <Icon name={icon} />}
+	</a>
+))}
+
+<style>
+	.pz-social {
+		color: var(--sl-color-text-accent);
+		padding: 0.5em;
+		margin: -0.5em;
+		align-items: center;
+	}
+	.pz-social:hover {
+		opacity: 0.66;
+	}
+	.pz-social :global(.pz-mark img) {
+		height: 1.15rem;
+	}
+</style>

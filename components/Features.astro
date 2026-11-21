@@ -1,13 +1,18 @@
 ---
 /*
- * Feature cards in a responsive grid. `items` is a list of
- * { title, body, icon? } (icon: a Starlight icon name).
+ * What a project does, as a compact grid of short entries sharing hairlines.
+ * `items` is a list of { title, body, link?, icon?, mark? }: `icon` is a
+ * generic Starlight icon; `mark` names a real thing (marks.mjs) and shows its
+ * logo where the owner allows it. Never use an icon that redraws a logo.
  */
 import { Icon } from '@astrojs/starlight/components';
+import Mark from './Mark.astro';
+
 interface Item {
 	title: string;
 	body: string;
 	icon?: string;
+	mark?: string;
 	link?: string;
 }
 interface Props {
@@ -20,9 +25,11 @@ const { items } = Astro.props;
 	{items.map((item) => {
 		const Tag = item.link ? 'a' : 'div';
 		return (
-			<Tag class="card" href={item.link}>
-				{item.icon && <span class="icon"><Icon name={item.icon as any} size="1.25rem" /></span>}
-				<h3>{item.title}</h3>
+			<Tag class="item" href={item.link}>
+				<h3>
+					{item.mark ? <Mark id={item.mark} name={false} decorative /> : item.icon && <span class="icon"><Icon name={item.icon as any} size="1rem" /></span>}
+					<span>{item.title}</span>
+				</h3>
 				<p>{item.body}</p>
 			</Tag>
 		);
@@ -32,47 +39,49 @@ const { items } = Astro.props;
 <style>
 	.pz-features {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-		gap: 1rem;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
 		margin: 1.5rem 0;
+		border: 1px solid var(--sl-color-hairline);
+		border-radius: var(--pz-radius-md);
+		overflow: hidden;
 	}
-	.card {
+	/* Each entry draws its right and bottom hairlines; the box clips the
+	   ones on its outer edge, and an unfilled last row stays empty. */
+	.item {
 		display: block;
-		padding: 1.15rem 1.2rem;
-		background: var(--pz-card-bg);
-		border: 1px solid var(--pz-card-border);
-		border-radius: var(--pz-radius-lg);
-		box-shadow: var(--pz-card-shadow);
+		padding: 0.85rem 1rem 0.95rem;
+		box-shadow: 1px 0 0 var(--sl-color-hairline), 0 1px 0 var(--sl-color-hairline);
 		text-decoration: none;
 		color: inherit;
-		transition: box-shadow 0.15s, border-color 0.15s, transform 0.15s;
 	}
-	a.card:hover {
-		box-shadow: var(--pz-card-shadow-hover);
-		border-color: color-mix(in srgb, var(--sl-color-accent) 40%, var(--pz-card-border));
-		transform: translateY(-1px);
+	a.item:hover {
+		background: var(--pz-surface);
 	}
-	.icon {
-		display: inline-grid;
-		place-items: center;
-		width: 2.1rem;
-		height: 2.1rem;
-		margin-bottom: 0.7rem;
-		border-radius: var(--pz-radius-md);
+	a.item:hover h3 span:last-child {
 		color: var(--sl-color-accent);
-		background: var(--sl-color-accent-low);
+	}
+	a.item:focus-visible {
+		outline: 2px solid var(--sl-color-accent);
+		outline-offset: -2px;
 	}
 	h3 {
+		display: flex;
+		align-items: center;
+		gap: 0.45rem;
 		margin: 0;
-		font-family: var(--pz-font-display);
-		font-size: var(--sl-text-lg);
+		font-size: var(--sl-text-sm);
 		font-weight: 600;
+		line-height: 1.35;
 		color: var(--sl-color-white);
 	}
+	.icon {
+		display: inline-flex;
+		color: var(--sl-color-accent);
+	}
 	p {
-		margin: 0.4rem 0 0;
-		font-size: var(--sl-text-sm);
-		line-height: 1.55;
+		margin: 0.3rem 0 0;
+		font-size: 0.8125rem;
+		line-height: 1.5;
 		color: var(--pz-text-secondary);
 	}
 </style>

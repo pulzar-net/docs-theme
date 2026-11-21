@@ -6,6 +6,32 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-11-21
+
+### Changed
+
+- A compact, technical design: IBM Plex Sans and IBM Plex Mono (Inter and
+  Outfit are gone), a 15px body with small heading steps, a hairline above
+  each section, tighter sidebar, tables, asides and code blocks, hairlines
+  instead of shadows, and the console's emerald as the one accent.
+- `Hero` sets the project's name in mono, shows its stack from
+  `projects.mjs`, and has no eyebrow, glow or mark; `eyebrow` is no longer a
+  prop.
+- `Features` is a compact grid of entries sharing hairlines.
+- The header's GitHub link and the hero's GitHub action show GitHub's own
+  Invertocat file instead of a redrawn icon.
+
+### Added
+
+- `marks.mjs` and the `Mark` component: a real thing's logo where its
+  owner's policy allows our use (Rust, Python, GitHub, Starlight), otherwise
+  its name with the owner's trademark symbol.
+- A Trademarks and attributions page on every site, linked from the footer,
+  with each owner's notice and the logo files' credits.
+- `projects.mjs` gives each project its `stack` and the registries its
+  releases are published to (`packages`), for the hero and the landing page.
+- `Features` entries take a `mark` in place of an `icon`.
+
 ## [0.3.0] - 2026-11-20
 
 ### Changed
@@ -113,7 +139,8 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/pulzar-net/docs-theme/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/pulzar-net/docs-theme/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/pulzar-net/docs-theme/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/pulzar-net/docs-theme/compare/v0.1.3...v0.2.0

@@ -20,16 +20,22 @@ import ProjectSwitcher from '../ProjectSwitcher.astro';
 		min-width: 0;
 	}
 	.pz-site-title :global(.site-title) {
-		font-family: var(--pz-font-display);
+		font-family: var(--sl-font-mono);
+		font-size: var(--sl-text-base);
 		font-weight: 600;
+		letter-spacing: -0.01em;
 		color: var(--sl-color-white);
-		gap: 0.55rem;
+		gap: 0.5rem;
+	}
+	.pz-site-title :global(.site-title img) {
+		height: 1.6rem;
+		width: auto;
 	}
 	/* A long project name (zigbee-codec-catalog) fits beside the search
 	   and menu buttons on a phone. */
 	@media (max-width: 30rem) {
 		.pz-site-title :global(.site-title) {
-			font-size: var(--sl-text-base);
+			font-size: var(--sl-text-sm);
 			gap: 0.4rem;
 		}
 		.pz-site-title :global(.site-title img) {

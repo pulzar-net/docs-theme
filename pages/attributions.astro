@@ -1,0 +1,70 @@
+---
+/*
+ * Trademarks and attributions: every mark in marks.mjs with its owner's
+ * notice, the logo files' credits, and the type. Added to every site at
+ * <base>/attributions.html and linked from the footer.
+ */
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import Mark from '../components/Mark.astro';
+import { marks, fonts } from '../marks.mjs';
+
+const all = Object.entries(marks);
+const logos = all.filter(([, m]) => 'logo' in m && m.logo);
+const words = all.filter(([, m]) => !('logo' in m && m.logo) && m.notice);
+---
+
+<StarlightPage frontmatter={{ title: 'Trademarks and attributions', description: 'Who owns the names and logos these docs show, and the credits their files ask for.', tableOfContents: false, editUrl: false, pagefind: false }}>
+	<p>
+		These projects are independent open source. Naming a protocol, language or
+		service says what a project works with; it does not mean the owner endorses
+		it, and no project here is certified by any of these organizations unless
+		its docs say so.
+	</p>
+
+	<h2 id="logos">Logos</h2>
+	<p>Shown unmodified, from each owner's own files, as its policy allows.</p>
+	<table>
+		<thead><tr><th>Mark</th><th>Notice</th></tr></thead>
+		<tbody>
+			{logos.map(([id, m]) => (
+				<tr>
+					<td><Mark id={id} name={!m.logo.wordmark} /></td>
+					<td>
+						{m.notice}
+						{'credit' in m && m.credit && <><br /><a href={m.credit.url}>{m.credit.text}</a></>}
+						{m.policy && <><br /><a href={m.policy}>Usage policy</a></>}
+					</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+
+	<h2 id="names">Names</h2>
+	<p>
+		These owners limit their logos to members, licensees or certified products,
+		ask for permission first, or publish no policy we could read, so only the
+		name appears.
+	</p>
+	<table>
+		<thead><tr><th>Name</th><th>Notice</th></tr></thead>
+		<tbody>
+			{words.map(([, m]) => (
+				<tr>
+					<td>{m.name}</td>
+					<td>
+						{m.notice}
+						{m.policy && <> <a href={m.policy}>Policy</a></>}
+					</td>
+				</tr>
+			))}
+		</tbody>
+	</table>
+
+	<h2 id="type">Type</h2>
+	<ul>
+		{fonts.map((f) => <li>{f.notice} <a href={f.url}>Source</a></li>)}
+	</ul>
+
+	<h2 id="pulzar">Pulzar</h2>
+	<p>Pulzar, Pulzr and the Pulzar mark are trademarks of Pulzar LLC.</p>
+</StarlightPage>

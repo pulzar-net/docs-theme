@@ -1,0 +1,37 @@
+---
+/*
+ * A third-party name: the owner's own logo where its policy allows our use,
+ * otherwise the owner's word mark. From marks.mjs. `name={false}` shows the
+ * logo alone, named for screen readers unless `decorative` (text beside it
+ * already names it).
+ */
+import { marks } from '../marks.mjs';
+
+const files = import.meta.glob('../assets/marks/*.svg', { eager: true, import: 'default' }) as Record<string, { src: string }>;
+const file = (name: string) => files[`../assets/marks/${name}`]?.src;
+
+interface Props {
+	id: string;
+	name?: boolean;
+	decorative?: boolean;
+	class?: string;
+}
+const { id, name = true, decorative = false, class: className } = Astro.props;
+const mark = marks[id as keyof typeof marks];
+if (!mark) throw new Error(`@pulzr/docs-theme: no mark "${id}" in marks.mjs`);
+// A logo that spells the name is shown only on its own, never beside the name.
+const logo = 'logo' in mark && mark.logo && !(mark.logo.wordmark && name) ? mark.logo : undefined;
+const label = mark.name;
+---
+
+<span class:list={['pz-mark', className]} title={name || decorative ? undefined : label}>
+	{logo && (
+		<>
+			<img class={logo.light !== logo.dark ? 'dark' : undefined} src={file(logo.dark)} alt={name || decorative ? '' : label} width={logo.width} height={logo.height} />
+			{logo.light !== logo.dark && (
+				<img class="light" src={file(logo.light)} alt={name || decorative ? '' : label} width={logo.width} height={logo.height} />
+			)}
+		</>
+	)}
+	{(name || !logo) && <span class="pz-mark-name">{label}</span>}
+</span>

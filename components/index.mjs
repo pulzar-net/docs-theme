@@ -8,3 +8,4 @@ export { default as HardwareTable } from './HardwareTable.astro';
 export { default as ReleaseDownload } from './ReleaseDownload.astro';
 export { default as MqttTopic } from './MqttTopic.astro';
 export { default as Snippet } from './Snippet.astro';
+export { default as Mark } from './Mark.astro';

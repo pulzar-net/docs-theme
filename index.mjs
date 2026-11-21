@@ -44,7 +44,14 @@ export default function pulzarDocs(options) {
 	} = options;
 	if (!project) throw new Error('@pulzr/docs-theme: `project` is required');
 
-	const site = { project, repo, license, home, projects: projects.filter((p) => p.site) };
+	const site = {
+		project,
+		repo,
+		license,
+		home,
+		self: projects.find((p) => p.id === project),
+		projects: projects.filter((p) => p.site),
+	};
 	const icon = readFileSync(here('./assets/icon.svg'), 'utf8');
 
 	return {
@@ -58,15 +65,20 @@ export default function pulzarDocs(options) {
 						alt: 'Pulzar',
 					},
 					customCss: [
-						'@fontsource-variable/inter',
-						'@fontsource/outfit/500.css',
-						'@fontsource/outfit/600.css',
+						'@fontsource/ibm-plex-sans/400.css',
+						'@fontsource/ibm-plex-sans/400-italic.css',
+						'@fontsource/ibm-plex-sans/500.css',
+						'@fontsource/ibm-plex-sans/600.css',
+						'@fontsource/ibm-plex-mono/400.css',
+						'@fontsource/ibm-plex-mono/500.css',
+						'@fontsource/ibm-plex-mono/600.css',
 						here('./styles/theme.css'),
 						...(config.customCss ?? []),
 					],
 					components: {
 						SiteTitle: here('./components/overrides/SiteTitle.astro'),
 						Footer: here('./components/overrides/Footer.astro'),
+						SocialIcons: here('./components/overrides/SocialIcons.astro'),
 						...config.components,
 					},
 					social: config.social ?? [{ icon: 'github', label: 'GitHub', href: repo }],
@@ -86,6 +98,7 @@ export default function pulzarDocs(options) {
 						{ tag: 'meta', attrs: { name: 'theme-color', content: '#0c111d', media: '(prefers-color-scheme: dark)' } },
 						{ tag: 'meta', attrs: { name: 'theme-color', content: '#ffffff', media: '(prefers-color-scheme: light)' } },
 					],
+					// Code: the text's mono, compact, hairlines instead of shadows.
 					// Rust blocks that rustdoc compiles carry attributes (rust,no_run):
 					// highlight them as Rust.
 					expressiveCode:
@@ -93,6 +106,22 @@ export default function pulzarDocs(options) {
 							? false
 							: {
 									...(typeof config.expressiveCode === 'object' ? config.expressiveCode : {}),
+									styleOverrides: {
+										borderRadius: '4px',
+										borderColor: 'var(--sl-color-hairline)',
+										codeFontFamily: 'var(--sl-font-mono)',
+										codeFontSize: '0.8125rem',
+										codeLineHeight: '1.55',
+										codePaddingBlock: '0.7rem',
+										codePaddingInline: '0.9rem',
+										uiFontFamily: 'var(--sl-font)',
+										uiFontSize: '0.75rem',
+										frames: {
+											frameBoxShadowCssValue: 'none',
+											editorActiveTabIndicatorTopColor: 'var(--sl-color-accent)',
+										},
+										...(typeof config.expressiveCode === 'object' ? config.expressiveCode.styleOverrides : {}),
+									},
 									shiki: {
 										...(typeof config.expressiveCode === 'object' ? config.expressiveCode.shiki : {}),
 										langAlias: {
@@ -110,7 +139,9 @@ export default function pulzarDocs(options) {
 				addIntegration({
 					name: '@pulzr/docs-theme/site',
 					hooks: {
-						'astro:config:setup'({ config: astroConfig, updateConfig: updateAstroConfig, logger }) {
+						'astro:config:setup'({ config: astroConfig, updateConfig: updateAstroConfig, injectRoute, logger }) {
+							// Trademarks and attributions, linked from every footer.
+							injectRoute({ pattern: '/attributions', entrypoint: here('./pages/attributions.astro') });
 							// Status words in Markdown tables become badges, as Starlight
 							// adds its own transforms: on the Sätteri processor.
 							const processor = astroConfig.markdown.processor;
@@ -154,3 +185,4 @@ export function pulzarPlugins(options) {
 }
 
 export { projects, areas, home as site };
+export { marks } from './marks.mjs';
