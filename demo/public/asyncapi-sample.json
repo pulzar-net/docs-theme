@@ -1,0 +1,101 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Example bridge MQTT API",
+    "version": "0.1.0",
+    "description": "A sample AsyncAPI document for the theme's demo: an MQTT bridge's topics, requests and events."
+  },
+  "defaultContentType": "application/json",
+  "servers": {
+    "broker": {
+      "host": "localhost:1883",
+      "protocol": "mqtt",
+      "description": "The MQTT broker the bridge connects to.",
+      "bindings": {
+        "mqtt": {
+          "keepAlive": 60,
+          "lastWill": { "topic": "zigbee/bridge/state", "qos": 1, "message": "offline", "retain": true }
+        }
+      }
+    }
+  },
+  "channels": {
+    "bridgeState": {
+      "address": "{base}/bridge/state",
+      "description": "Whether the bridge is online. Retained; the broker publishes `offline` as the bridge's last will.",
+      "parameters": { "base": { "description": "The base topic, `zigbee` unless `mqtt.base_topic` says otherwise.", "default": "zigbee" } },
+      "messages": { "state": { "$ref": "#/components/messages/BridgeState" } }
+    },
+    "deviceState": {
+      "address": "{base}/{device}",
+      "description": "A device's current state: one property per attribute the bridge decodes.",
+      "parameters": {
+        "base": { "description": "The base topic.", "default": "zigbee" },
+        "device": { "description": "The device's name if it has one, else its IEEE address as 0x and 16 lowercase hex digits." }
+      },
+      "messages": { "state": { "$ref": "#/components/messages/DeviceState" } }
+    },
+    "deviceSet": {
+      "address": "{base}/{device}/set",
+      "description": "Commands to a device: switch, set brightness and color temperature.",
+      "parameters": {
+        "base": { "description": "The base topic.", "default": "zigbee" },
+        "device": { "description": "The device's name or IEEE address." }
+      },
+      "messages": { "set": { "$ref": "#/components/messages/DeviceSet" } }
+    }
+  },
+  "operations": {
+    "publishBridgeState": {
+      "action": "send",
+      "channel": { "$ref": "#/channels/bridgeState" },
+      "summary": "The bridge publishes its state when it connects and stops.",
+      "bindings": { "mqtt": { "qos": 1, "retain": true } }
+    },
+    "publishDeviceState": {
+      "action": "send",
+      "channel": { "$ref": "#/channels/deviceState" },
+      "summary": "The bridge publishes a device's state whenever an attribute changes.",
+      "bindings": { "mqtt": { "qos": 0, "retain": true } }
+    },
+    "receiveDeviceSet": {
+      "action": "receive",
+      "channel": { "$ref": "#/channels/deviceSet" },
+      "summary": "The bridge subscribes to commands for every device.",
+      "bindings": { "mqtt": { "qos": 1 } }
+    }
+  },
+  "components": {
+    "messages": {
+      "BridgeState": {
+        "name": "BridgeState",
+        "contentType": "text/plain",
+        "payload": { "type": "string", "enum": ["online", "offline"], "description": "`online` while connected, `offline` after a clean stop or as the last will." }
+      },
+      "DeviceState": {
+        "name": "DeviceState",
+        "payload": {
+          "type": "object",
+          "properties": {
+            "state": { "type": "string", "enum": ["ON", "OFF"], "description": "On/Off cluster: whether the device is on." },
+            "brightness": { "type": "integer", "minimum": 0, "maximum": 254, "description": "Level Control cluster: the current level." },
+            "linkquality": { "type": "integer", "minimum": 0, "maximum": 255, "description": "Link quality of the last frame, as the coordinator reported it." }
+          }
+        },
+        "examples": [{ "payload": { "state": "ON", "brightness": 200, "linkquality": 112 } }]
+      },
+      "DeviceSet": {
+        "name": "DeviceSet",
+        "payload": {
+          "type": "object",
+          "properties": {
+            "state": { "type": "string", "enum": ["ON", "OFF", "TOGGLE"], "description": "Switch the device." },
+            "brightness": { "type": "integer", "minimum": 0, "maximum": 254, "description": "Move to this level." },
+            "transition": { "type": "number", "minimum": 0, "description": "Seconds to take." }
+          }
+        },
+        "examples": [{ "payload": { "state": "ON", "brightness": 200, "transition": 1.5 } }]
+      }
+    }
+  }
+}

@@ -13,10 +13,10 @@ export default defineConfig({
 		starlight({
 			title: 'docs-theme',
 			description: 'The shared Starlight theme for Pulzar open-source projects.',
-			plugins: pulzarPlugins({ project: 'docs-theme', siteDir: 'demo' }),
+			plugins: pulzarPlugins({ project: 'docs-theme', siteDir: 'demo', linkExclude: ['/docs-theme/asyncapi-sample.json'] }),
 			sidebar: [
 				{ label: 'Start here', items: ['guides', 'guides/getting-started'] },
-				{ label: 'Components', items: ['components'] },
+				{ label: 'Components', items: ['components', 'mqtt-reference'] },
 			],
 		}),
 	],

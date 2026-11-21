@@ -1,0 +1,114 @@
+---
+/*
+ * An AsyncAPI document (an MQTT API, say) as a reference: its servers,
+ * channels, operations and message schemas, rendered by Scalar's API
+ * reference in this theme's type and colors. Colors follow the browser;
+ * Scalar's own sidebar, client, toolbar and extras are off.
+ *
+ *   import AsyncApiReference from '@pulzr/docs-theme/components/AsyncApiReference.astro';
+ *   <AsyncApiReference spec="/zigbee-bridge/asyncapi.json" />
+ *
+ * Needs @scalar/api-reference in the site (an optional peer dependency of
+ * this theme), and a page with `tableOfContents: false`, since the
+ * reference has its own headings.
+ */
+interface Props {
+	/** The AsyncAPI document's URL, usually a file in the site's public/. */
+	spec: string;
+}
+const { spec } = Astro.props;
+---
+
+<pz-asyncapi class="pz-asyncapi not-content" data-spec={spec}>
+	<p class="loading">Loading the reference from <a href={spec}>{spec}</a>.</p>
+</pz-asyncapi>
+
+<script>
+	import { createApiReference } from '@scalar/api-reference';
+	import '@scalar/api-reference/style.css';
+
+	// Scalar's variables, from the theme's tokens: they follow the page's
+	// light or dark palette on their own.
+	const customCss = `
+		.light-mode, .dark-mode, .pz-asyncapi {
+			--scalar-font: var(--sl-font);
+			--scalar-font-code: var(--sl-font-mono);
+			--scalar-color-1: var(--sl-color-white);
+			--scalar-color-2: var(--sl-color-gray-2);
+			--scalar-color-3: var(--sl-color-gray-3);
+			--scalar-color-accent: var(--sl-color-accent);
+			--scalar-link-color: var(--sl-color-accent);
+			--scalar-background-1: var(--sl-color-bg);
+			--scalar-background-2: var(--pz-surface);
+			--scalar-background-3: var(--sl-color-gray-6);
+			--scalar-background-accent: var(--sl-color-accent-low);
+			--scalar-border-color: var(--sl-color-hairline);
+			--scalar-radius: var(--pz-radius-sm);
+			--scalar-radius-lg: var(--pz-radius-md);
+			--scalar-radius-xl: var(--pz-radius-lg);
+			--scalar-shadow-1: none;
+			--scalar-shadow-2: none;
+			--scalar-button-1: var(--sl-color-accent);
+			--scalar-button-1-color: var(--sl-color-black);
+			/* The theme's type scale: headings a step above body text. */
+			--scalar-heading-1: var(--sl-text-h2);
+			--scalar-font-size-1: var(--sl-text-h3);
+			--scalar-font-size-2: var(--sl-text-body);
+			--scalar-font-size-3: var(--sl-text-sm);
+		}
+		.pz-asyncapi .section-header {
+			font-size: var(--sl-text-h2);
+			letter-spacing: -0.005em;
+		}
+		/* Scalar has no option for its Copy as Markdown buttons; this is
+		   their class list in the pinned version. */
+		.pz-asyncapi button.scalar-button.h-6.shrink-0.px-2 {
+			display: none;
+		}
+	`;
+
+	class PzAsyncApi extends HTMLElement {
+		connectedCallback() {
+			const spec = this.dataset.spec!;
+			const dark = window.matchMedia('(prefers-color-scheme: dark)');
+			const configuration = () => ({
+				url: spec,
+				theme: 'none' as const,
+				customCss,
+				withDefaultFonts: false,
+				forceDarkModeState: dark.matches ? ('dark' as const) : ('light' as const),
+				hideDarkModeToggle: true,
+				showSidebar: false,
+				hideClientButton: true,
+				hideTestRequestButton: true,
+				showDeveloperTools: 'never' as const,
+				showToolbar: 'never' as const,
+				hideSearch: true,
+				documentDownloadType: 'none' as const,
+				telemetry: false,
+				mcp: { disabled: true },
+				// The page keeps its own title and URL.
+				setPageTitle: () => title,
+				urlRouting: false,
+			});
+			const title = document.title;
+			const mount = document.createElement('div');
+			this.replaceChildren(mount);
+			const reference = createApiReference(mount, configuration());
+			dark.addEventListener('change', () => reference.updateConfiguration(configuration()));
+		}
+	}
+	customElements.define('pz-asyncapi', PzAsyncApi);
+</script>
+
+<style>
+	.pz-asyncapi {
+		display: block;
+		margin-top: 1rem;
+		min-height: 20rem;
+	}
+	.loading {
+		color: var(--sl-color-gray-3);
+		font-size: var(--sl-text-sm);
+	}
+</style>

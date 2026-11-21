@@ -1,6 +1,6 @@
 {
   "name": "@pulzr/docs-theme",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "The shared Starlight theme, components and starter for Pulzar's open-source project docs.",
   "license": "MIT",
   "author": "Pulzar LLC",
@@ -46,7 +46,13 @@
   ],
   "peerDependencies": {
     "@astrojs/starlight": ">=0.43.0",
-    "astro": ">=7.4.0"
+    "astro": ">=7.4.0",
+    "@scalar/api-reference": "1.82.1"
+  },
+  "peerDependenciesMeta": {
+    "@scalar/api-reference": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.4.10",
@@ -56,6 +62,7 @@
   },
   "devDependencies": {
     "@astrojs/starlight": "0.43.1",
+    "@scalar/api-reference": "1.82.1",
     "astro": "7.4.13"
   },
   "scripts": {

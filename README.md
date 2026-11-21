@@ -41,6 +41,7 @@ starter that gives a new project its docs site in one command.
 | `Hero` | a landing page's name, one line, the project's stack from `projects.mjs`, and actions |
 | `Features` | what a project does, as a list of entries; an entry may show a `mark`, never a stock icon |
 | `Mark` | a language, protocol, registry or platform: its logo where allowed, else its name |
+| `AsyncApiReference` | an AsyncAPI document (an MQTT API) as a reference: servers, channels, operations, message schemas |
 | `StatusBadge` | a tested, expected, in progress, planned or unsupported pill |
 | `StatusMatrix` | a feature matrix with status badges and versions |
 | `HardwareTable` | hardware with tested, expected and unsupported badges |
@@ -52,6 +53,27 @@ A plain Markdown table needs no component for its badges: in a column headed
 **State** or **Status**, a cell that is only a status word (`tested`,
 `expected`, `in progress`, `planned`, `unsupported`, ...) is drawn as that
 badge.
+
+`AsyncApiReference` renders with [Scalar's API reference](https://github.com/scalar/scalar),
+an optional peer dependency, so only a site that uses it installs it:
+
+```sh
+npm install --save-exact @scalar/api-reference@1.82.1
+```
+
+```mdx
+---
+title: MQTT reference
+tableOfContents: false
+---
+import AsyncApiReference from '@pulzr/docs-theme/components/AsyncApiReference.astro';
+
+<AsyncApiReference spec="/my-project/asyncapi.json" />
+```
+
+It follows the browser's light or dark preference and the theme's type and
+colors, with Scalar's sidebar, client, toolbar and extras off. It is not in
+`@pulzr/docs-theme/components`, so sites without it never load Scalar.
 
 The [component gallery](https://oss.pulzr.net/docs-theme/components.html)
 shows each one with its props.
