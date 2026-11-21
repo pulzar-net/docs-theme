@@ -79,6 +79,8 @@ export default function pulzarDocs(options) {
 						SiteTitle: here('./components/overrides/SiteTitle.astro'),
 						Footer: here('./components/overrides/Footer.astro'),
 						SocialIcons: here('./components/overrides/SocialIcons.astro'),
+						ThemeProvider: here('./components/overrides/ThemeProvider.astro'),
+						ThemeSelect: here('./components/overrides/ThemeSelect.astro'),
 						...config.components,
 					},
 					social: config.social ?? [{ icon: 'github', label: 'GitHub', href: repo }],
@@ -106,6 +108,12 @@ export default function pulzarDocs(options) {
 							? false
 							: {
 									...(typeof config.expressiveCode === 'object' ? config.expressiveCode : {}),
+									// Plain frames: no window chrome on shell blocks. A block with a
+									// title still shows it.
+									defaultProps: {
+										frame: 'code',
+										...(typeof config.expressiveCode === 'object' ? config.expressiveCode.defaultProps : {}),
+									},
 									styleOverrides: {
 										borderRadius: '4px',
 										borderColor: 'var(--sl-color-hairline)',

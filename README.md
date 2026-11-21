@@ -17,7 +17,8 @@ starter that gives a new project its docs site in one command.
 - **A compact, technical look.** Dense reference docs: IBM Plex Sans for text
   and IBM Plex Mono for code and identifiers, small steps in the type scale,
   hairlines instead of shadows, and the Pulzr console's emerald as the one
-  accent, in light and dark.
+  accent. Light and dark follow the browser (there is no switch), and pages
+  use the window's width, with prose kept to a readable measure.
 - **Logos where we name a real thing, under each owner's rules.**
   [`marks.mjs`](marks.mjs) lists every language, protocol, registry and
   platform the sites name. Where an owner's policy allows our use, its own
@@ -38,7 +39,7 @@ starter that gives a new project its docs site in one command.
 | Component | For |
 |---|---|
 | `Hero` | a landing page's name, one line, the project's stack from `projects.mjs`, and actions |
-| `Features` | a compact grid of what a project does; each entry takes a generic `icon` or a `mark` |
+| `Features` | what a project does, as a list of entries; an entry may show a `mark`, never a stock icon |
 | `Mark` | a language, protocol, registry or platform: its logo where allowed, else its name |
 | `StatusBadge` | a tested, expected, in progress, planned or unsupported pill |
 | `StatusMatrix` | a feature matrix with status badges and versions |

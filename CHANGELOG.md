@@ -6,6 +6,24 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-11-21
+
+### Changed
+
+- Light and dark follow the browser's preference only: there is no theme
+  switch, and a choice stored by an earlier version is cleared.
+- Pages use the window: sidebar, content and table of contents span it, and
+  landing pages too. Prose keeps an 80-character measure; tables, code and
+  components use the full width.
+- `Features` is a list, one entry per row (title, then its lines), with no
+  stock icons; an entry may show a `mark`. `Hero` actions have no icons
+  except GitHub's own logo, and the hero is smaller.
+- Code blocks use plain frames: no window chrome on shell blocks.
+
+### Removed
+
+- The `icon` option of `Features` entries and `Hero` actions.
+
 ## [0.4.0] - 2026-11-21
 
 ### Changed
@@ -139,7 +157,8 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/pulzar-net/docs-theme/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/pulzar-net/docs-theme/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/pulzar-net/docs-theme/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/pulzar-net/docs-theme/compare/v0.2.0...v0.2.1

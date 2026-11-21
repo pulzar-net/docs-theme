@@ -22,10 +22,12 @@
 	--sl-text-h4: 0.9375rem;
 	--sl-text-h5: 0.875rem;
 
-	/* Layout: a shorter header, a narrower sidebar, room for tables. */
+	/* Layout: the page uses the window. Sidebar, content and table of
+	   contents span it; only prose keeps a readable line length (below). */
 	--sl-nav-height: 3.25rem;
 	--sl-sidebar-width: 16.5rem;
-	--sl-content-width: 48rem;
+	--sl-content-width: 100%;
+	--pz-prose-width: 80ch;
 
 	--pz-radius-sm: 3px;
 	--pz-radius-md: 4px;
@@ -103,6 +105,12 @@
 	--pz-menu-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
 }
 
+/* Pages without a sidebar (landing pages) span the window too; Starlight
+   narrows them with a more specific selector. */
+:root:not([data-has-sidebar]) {
+	--sl-content-width: 100%;
+}
+
 /* Identifiers read as code wherever they appear. */
 .pz-mono,
 .sl-markdown-content :is(code, kbd, samp) {
@@ -165,6 +173,14 @@ h1#_top {
 }
 .sl-markdown-content {
 	font-size: var(--sl-text-body);
+}
+/* Prose keeps a readable measure; tables, code and components use the
+   full width. */
+.sl-markdown-content > :is(p, ul, ol, dl, blockquote, .starlight-aside) {
+	max-width: var(--pz-prose-width);
+}
+.content-panel h1#_top {
+	max-width: var(--pz-prose-width);
 }
 .sl-markdown-content > * + * {
 	margin-top: 0.85rem;

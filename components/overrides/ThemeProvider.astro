@@ -1,0 +1,19 @@
+---
+/*
+ * Colors follow the browser's light or dark preference, and only that:
+ * there is no theme switch, and a choice stored by an earlier version of
+ * these sites is cleared. Inline, so the first paint has the right colors.
+ */
+---
+
+<script is:inline>
+	(() => {
+		try {
+			localStorage.removeItem('starlight-theme');
+		} catch {}
+		const light = window.matchMedia('(prefers-color-scheme: light)');
+		const apply = () => (document.documentElement.dataset.theme = light.matches ? 'light' : 'dark');
+		apply();
+		light.addEventListener('change', apply);
+	})();
+</script>

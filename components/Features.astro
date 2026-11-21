@@ -1,17 +1,15 @@
 ---
 /*
- * What a project does, as a compact grid of short entries sharing hairlines.
- * `items` is a list of { title, body, link?, icon?, mark? }: `icon` is a
- * generic Starlight icon; `mark` names a real thing (marks.mjs) and shows its
- * logo where the owner allows it. Never use an icon that redraws a logo.
+ * What a project does, as a list: each entry's title, then a line or two.
+ * `items` is a list of { title, body, link?, mark? }: `mark` names a real
+ * thing (marks.mjs) and shows its logo where the owner allows it. No stock
+ * icons: an entry is its title and one or two lines.
  */
-import { Icon } from '@astrojs/starlight/components';
 import Mark from './Mark.astro';
 
 interface Item {
 	title: string;
 	body: string;
-	icon?: string;
 	mark?: string;
 	link?: string;
 }
@@ -27,7 +25,7 @@ const { items } = Astro.props;
 		return (
 			<Tag class="item" href={item.link}>
 				<h3>
-					{item.mark ? <Mark id={item.mark} name={false} decorative /> : item.icon && <span class="icon"><Icon name={item.icon as any} size="1rem" /></span>}
+					{item.mark && <Mark id={item.mark} name={false} decorative />}
 					<span>{item.title}</span>
 				</h3>
 				<p>{item.body}</p>
@@ -37,20 +35,19 @@ const { items } = Astro.props;
 </div>
 
 <style>
+	/* A list, one entry per row: the title, then what it means. Scans like a
+	   reference table at any width, with no orphaned cells. */
 	.pz-features {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
-		margin: 1.5rem 0;
-		border: 1px solid var(--sl-color-hairline);
-		border-radius: var(--pz-radius-md);
-		overflow: hidden;
+		margin: 1.25rem 0;
+		border-top: 1px solid var(--sl-color-hairline);
 	}
-	/* Each entry draws its right and bottom hairlines; the box clips the
-	   ones on its outer edge, and an unfilled last row stays empty. */
 	.item {
-		display: block;
-		padding: 0.85rem 1rem 0.95rem;
-		box-shadow: 1px 0 0 var(--sl-color-hairline), 0 1px 0 var(--sl-color-hairline);
+		display: grid;
+		grid-template-columns: minmax(12rem, 18rem) minmax(0, 1fr);
+		gap: 0.25rem 1.5rem;
+		align-items: baseline;
+		padding: 0.6rem 0.25rem;
+		border-bottom: 1px solid var(--sl-color-hairline);
 		text-decoration: none;
 		color: inherit;
 	}
@@ -71,17 +68,19 @@ const { items } = Astro.props;
 		margin: 0;
 		font-size: var(--sl-text-sm);
 		font-weight: 600;
-		line-height: 1.35;
+		line-height: 1.45;
 		color: var(--sl-color-white);
 	}
-	.icon {
-		display: inline-flex;
-		color: var(--sl-color-accent);
-	}
 	p {
-		margin: 0.3rem 0 0;
-		font-size: 0.8125rem;
+		margin: 0;
+		max-width: var(--pz-prose-width);
+		font-size: var(--sl-text-sm);
 		line-height: 1.5;
 		color: var(--pz-text-secondary);
+	}
+	@media (max-width: 40rem) {
+		.item {
+			grid-template-columns: 1fr;
+		}
 	}
 </style>

@@ -1,10 +1,9 @@
 ---
 /*
  * A project's landing header: its name (set as the identifier it is), one
- * line on what it does, what it is built on, and a row of actions. Use on
+ * line on what it does, what it is built on, and a row of plain actions. Use on
  * a page with `template: splash`. The stack line comes from projects.mjs.
  */
-import { Icon } from '@astrojs/starlight/components';
 import site from 'virtual:pulzar-docs/site';
 import Mark from './Mark.astro';
 
@@ -12,7 +11,6 @@ interface Action {
 	text: string;
 	link: string;
 	variant?: 'primary' | 'secondary' | 'minimal';
-	icon?: string;
 }
 interface Props {
 	title: string;
@@ -21,7 +19,7 @@ interface Props {
 }
 const { title, tagline, actions = [] } = Astro.props;
 const stack: string[] = site.self?.stack ?? [];
-const isGitHub = (a: Action) => a.icon === 'github' || a.link.startsWith('https://github.com/');
+const isGitHub = (a: Action) => a.link.startsWith('https://github.com/');
 ---
 
 <section class="pz-hero not-content">
@@ -37,9 +35,8 @@ const isGitHub = (a: Action) => a.icon === 'github' || a.link.startsWith('https:
 		<div class="actions">
 			{actions.map((a, i) => (
 				<a href={a.link} class:list={['action', a.variant ?? (i === 0 ? 'primary' : 'minimal')]}>
-					{isGitHub(a) ? <Mark id="github" name={false} decorative /> : a.icon && a.icon !== 'right-arrow' && <Icon name={a.icon as any} size="1em" />}
+					{isGitHub(a) && <Mark id="github" name={false} decorative />}
 					<span>{a.text}</span>
-					{a.icon === 'right-arrow' && <Icon name="right-arrow" size="1em" />}
 				</a>
 			))}
 		</div>
@@ -48,13 +45,12 @@ const isGitHub = (a: Action) => a.icon === 'github' || a.link.startsWith('https:
 
 <style>
 	.pz-hero {
-		padding: 1.75rem 0 1.5rem;
-		border-bottom: 1px solid var(--sl-color-hairline);
+		padding: 1.25rem 0 0.5rem;
 	}
 	h1 {
 		margin: 0;
 		font-family: var(--sl-font-mono);
-		font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+		font-size: clamp(1.625rem, 3vw, 2.125rem);
 		font-weight: 600;
 		line-height: 1.1;
 		letter-spacing: -0.02em;
@@ -62,9 +58,9 @@ const isGitHub = (a: Action) => a.icon === 'github' || a.link.startsWith('https:
 		overflow-wrap: anywhere;
 	}
 	.tagline {
-		margin: 0.65rem 0 0;
-		max-width: 44rem;
-		font-size: 1.0625rem;
+		margin: 0.5rem 0 0;
+		max-width: var(--pz-prose-width);
+		font-size: 1rem;
 		line-height: 1.55;
 		color: var(--sl-color-gray-2);
 	}
@@ -89,7 +85,7 @@ const isGitHub = (a: Action) => a.icon === 'github' || a.link.startsWith('https:
 		flex-wrap: wrap;
 		align-items: center;
 		gap: 0.5rem;
-		margin-top: 1.25rem;
+		margin-top: 1rem;
 	}
 	.action {
 		display: inline-flex;
