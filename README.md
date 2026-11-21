@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/@pulzr/docs-theme.svg)](https://www.npmjs.com/package/@pulzr/docs-theme)
 [![CI](https://github.com/pulzar-net/docs-theme/actions/workflows/ci.yml/badge.svg)](https://github.com/pulzar-net/docs-theme/actions/workflows/ci.yml)
-[![Demo](https://img.shields.io/badge/demo-pulzar--net.github.io-blue)](https://pulzar-net.github.io/docs-theme/)
+[![Demo](https://img.shields.io/badge/demo-oss.pulzr.net-blue)](https://oss.pulzr.net/docs-theme/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 One [Starlight](https://starlight.astro.build) theme for the documentation of
@@ -10,7 +10,7 @@ every Pulzar open-source project, so they read as one family: the same brand,
 the same chrome, the same components for the pages every project needs, and a
 starter that gives a new project its docs site in one command.
 
-**[Demo and component gallery](https://pulzar-net.github.io/docs-theme/)**
+**[Demo and component gallery](https://oss.pulzr.net/docs-theme/)**
 
 ## What it provides
 
@@ -42,7 +42,7 @@ A plain Markdown table needs no component for its badges: in a column headed
 `expected`, `in progress`, `planned`, `unsupported`, ...) is drawn as that
 badge.
 
-The [component gallery](https://pulzar-net.github.io/docs-theme/components.html)
+The [component gallery](https://oss.pulzr.net/docs-theme/components.html)
 shows each one with its props.
 
 ## A new project's docs, in one command
@@ -61,8 +61,11 @@ publish to GitHub Pages). It never overwrites a file. Then:
 cd docs && npm install && npm run dev
 ```
 
-Enable GitHub Pages with the source "GitHub Actions", and add the project to
-[`projects.mjs`](projects.mjs) so it appears in every site's switcher.
+Enable GitHub Pages with the source "GitHub Actions". The site is served at
+`https://oss.pulzr.net/<repository>/`: the organization's Pages site has that
+custom domain, so every project site without its own domain is served under
+it. Add the project to [`projects.mjs`](projects.mjs) (with `docs: true`) so
+it appears in every site's switcher and on the [landing page](https://oss.pulzr.net/).
 
 The site pins the theme at an exact version. To get each new release as a
 pull request, give Dependabot the docs directory:
@@ -88,7 +91,7 @@ import starlight from '@astrojs/starlight';
 import { pulzarPlugins } from '@pulzr/docs-theme';
 
 export default defineConfig({
-  site: 'https://pulzar-net.github.io',
+  site: 'https://oss.pulzr.net',
   base: '/my-project',
   build: { format: 'file' },
   integrations: [
@@ -106,7 +109,7 @@ export default defineConfig({
 | `repo` | `https://github.com/pulzar-net/<project>` | the repository, for edit links, the footer and the GitHub link |
 | `license` | `MIT` | the license the footer names |
 | `editBranch` | `main` | the branch edit links open |
-| `siteDir` | `docs` | the docs site's directory in the repository, for edit links |
+| `siteDir` | `docs` | the docs site's directory in the repository, for edit links; `.` for a site at the root |
 | `validateLinks` | `true` | fail the build on a broken internal link |
 | `linkExclude` | `[]` | link patterns the validator skips, such as API docs added after the build |
 | `linkValidator` | `{}` | more [starlight-links-validator options](https://starlight-links-validator.vercel.app/configuration/), such as `errorOnRelativeLinks: false` for a page that embeds a README |

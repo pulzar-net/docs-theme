@@ -6,9 +6,10 @@ import starlight from '@astrojs/starlight';
 import { pulzarPlugins } from '@pulzr/docs-theme';
 
 export default defineConfig({
-	site: 'https://pulzar-net.github.io',
+	site: 'https://oss.pulzr.net',
 	base: '/{{project}}',
-	// Pages are page.html, as GitHub Pages serves them.
+	// Served at https://oss.pulzr.net/{{project}}/, the organization's Pages
+	// domain. Pages are page.html, as GitHub Pages serves them.
 	build: { format: 'file' },
 	integrations: [
 		starlight({

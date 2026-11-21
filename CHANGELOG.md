@@ -6,6 +6,29 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-11-20
+
+### Changed
+
+- Sites are served at `https://oss.pulzr.net/<repository>/`, the
+  organization's Pages domain: the starter, the demo and the README set
+  `site: 'https://oss.pulzr.net'`. The old `pulzar-net.github.io` URLs
+  redirect there.
+- `projects.mjs` lists every public Pulzar project, by area, with its
+  repository and docs. The switcher shows the projects with a site on this
+  theme, and ends with a link to the landing page at https://oss.pulzr.net/.
+
+### Added
+
+- `@pulzr/docs-theme/projects` exports `projects`, `areas` and `site`, for
+  the landing page; the package's main entry exports them too.
+- `siteDir: '.'` for a site at the repository's root.
+
+### Fixed
+
+- The hero's glow no longer makes a landing page scroll sideways where the
+  content reaches the window's edge.
+
 ## [0.2.1] - 2026-11-20
 
 ### Added
@@ -90,7 +113,8 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   GitHub Pages workflow.
 - A demo site with every component, published to GitHub Pages.
 
-[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/pulzar-net/docs-theme/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/pulzar-net/docs-theme/compare/v0.2.1...v0.3.0
 [0.2.1]: https://github.com/pulzar-net/docs-theme/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/pulzar-net/docs-theme/compare/v0.1.3...v0.2.0
 [0.1.3]: https://github.com/pulzar-net/docs-theme/compare/v0.1.2...v0.1.3

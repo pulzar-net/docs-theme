@@ -13,7 +13,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import starlightLinksValidator from 'starlight-links-validator';
-import { projects } from './projects.mjs';
+import { projects, areas, site as home } from './projects.mjs';
 import { isSatteriProcessor } from '@astrojs/markdown-satteri';
 import { statusBadgesPlugin } from './status-badges.mjs';
 
@@ -25,7 +25,7 @@ const here = (path) => fileURLToPath(new URL(path, import.meta.url));
  * @property {string} [repo] The repository URL; defaults to https://github.com/pulzar-net/<project>.
  * @property {string} [license] The license named in the footer; defaults to MIT.
  * @property {string} [editBranch] The branch edit links point at; defaults to main.
- * @property {string} [siteDir] The docs site's directory in the repository, where astro.config.mjs is; defaults to docs. Edit links are this plus each page's path from there.
+ * @property {string} [siteDir] The docs site's directory in the repository, where astro.config.mjs is; defaults to docs; '.' for a site at the repository's root. Edit links are this plus each page's path from there.
  * @property {boolean} [validateLinks] Fail the build on broken internal links; defaults to true.
  * @property {string[]} [linkExclude] Link patterns the validator skips (for pages generated outside Starlight, such as API docs).
  * @property {Record<string, unknown>} [linkValidator] More starlight-links-validator options, such as `errorOnRelativeLinks: false` for a page that embeds a README with repository-relative links.
@@ -44,7 +44,7 @@ export default function pulzarDocs(options) {
 	} = options;
 	if (!project) throw new Error('@pulzr/docs-theme: `project` is required');
 
-	const site = { project, repo, license, projects };
+	const site = { project, repo, license, home, projects: projects.filter((p) => p.site) };
 	const icon = readFileSync(here('./assets/icon.svg'), 'utf8');
 
 	return {
@@ -72,7 +72,7 @@ export default function pulzarDocs(options) {
 					social: config.social ?? [{ icon: 'github', label: 'GitHub', href: repo }],
 					editLink: config.editLink?.baseUrl
 						? config.editLink
-						: { baseUrl: `${repo}/edit/${editBranch}/${siteDir}/` },
+						: { baseUrl: `${repo}/edit/${editBranch}/${siteDir === '.' || siteDir === '' ? '' : `${siteDir}/`}` },
 					head: [
 						...(config.head ?? []),
 						{
@@ -153,4 +153,4 @@ export function pulzarPlugins(options) {
 	return plugins;
 }
 
-export { projects };
+export { projects, areas, home as site };

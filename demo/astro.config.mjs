@@ -5,7 +5,7 @@ import starlight from '@astrojs/starlight';
 import { pulzarPlugins } from '../index.mjs';
 
 export default defineConfig({
-	site: 'https://pulzar-net.github.io',
+	site: 'https://oss.pulzr.net',
 	base: '/docs-theme',
 	build: { format: 'file' },
 	redirects: { '/guides/index': '/docs-theme/guides.html' },

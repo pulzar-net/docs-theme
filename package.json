@@ -1,10 +1,10 @@
 {
   "name": "@pulzr/docs-theme",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "The shared Starlight theme, components and starter for Pulzar's open-source project docs.",
   "license": "MIT",
   "author": "Pulzar LLC",
-  "homepage": "https://pulzar-net.github.io/docs-theme/",
+  "homepage": "https://oss.pulzr.net/docs-theme/",
   "bugs": "https://github.com/pulzar-net/docs-theme/issues",
   "repository": {
     "type": "git",
@@ -21,6 +21,7 @@
   "type": "module",
   "exports": {
     ".": "./index.mjs",
+    "./projects": "./projects.mjs",
     "./components": "./components/index.mjs",
     "./components/*": "./components/*",
     "./styles/*": "./styles/*",

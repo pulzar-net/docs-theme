@@ -54,6 +54,9 @@ const { title, tagline, actions = [], eyebrow } = Astro.props;
 		gap: 2rem;
 		padding: 2.5rem 0 1.5rem;
 		isolation: isolate;
+		/* The glow reaches past the content's edge; clip it sideways, or the
+		   page scrolls horizontally where the content meets the window. */
+		overflow-x: clip;
 	}
 	.glow {
 		position: absolute;

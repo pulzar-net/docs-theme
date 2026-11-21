@@ -14,11 +14,15 @@ const current = site.project;
 	<div class="pz-menu" role="menu">
 		<p class="pz-menu-label">Pulzar open source</p>
 		{site.projects.map((p) => (
-			<a role="menuitem" href={p.url} class:list={{ current: p.id === current }} aria-current={p.id === current ? 'page' : undefined}>
+			<a role="menuitem" href={p.docs} class:list={{ current: p.id === current }} aria-current={p.id === current ? 'page' : undefined}>
 				<span class="name">{p.name}</span>
 				<span class="desc">{p.description}</span>
 			</a>
 		))}
+		<a role="menuitem" href={`${site.home}/`} class="all">
+			<span class="name">All projects</span>
+			<span class="desc">Every Pulzar open-source project, on {new URL(site.home).host}</span>
+		</a>
 	</div>
 </details>
 
@@ -99,6 +103,11 @@ const current = site.project;
 	.pz-menu a:focus-visible {
 		background: var(--sl-color-gray-6);
 		outline: none;
+	}
+	.pz-menu a.all {
+		margin-top: 0.3rem;
+		border-top: 1px solid var(--pz-card-border);
+		border-radius: 0 0 var(--pz-radius-md) var(--pz-radius-md);
 	}
 	.pz-menu a.current {
 		background: var(--sl-color-accent-low);
