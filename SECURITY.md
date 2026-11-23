@@ -1,6 +1,6 @@
 # Security policy
 
-docs-theme builds the documentation sites of Pulzar's open-source projects.
+docs-theme builds the documentation sites of Pulzr's open-source projects.
 A problem in it (a script that runs in readers' browsers, a dependency, the
 init command) reaches every site, so we fix those first.
 

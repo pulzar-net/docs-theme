@@ -1,4 +1,4 @@
-// Components for Pulzar docs pages. Import in MDX:
+// Components for Pulzr docs pages. Import in MDX:
 //   import { Hero, Features, StatusMatrix } from '@pulzr/docs-theme/components';
 export { default as Hero } from './Hero.astro';
 export { default as Features } from './Features.astro';

@@ -1,5 +1,5 @@
 /**
- * @pulzr/docs-theme: one Starlight look for every Pulzar open-source
+ * @pulzr/docs-theme: one Starlight look for every Pulzr open-source
  * project. Add it to a Starlight site's plugins:
  *
  *   import pulzarDocs from '@pulzr/docs-theme';
@@ -62,7 +62,7 @@ export default function pulzarDocs(options) {
 					logo: config.logo ?? {
 						light: here('./assets/mark-light.svg'),
 						dark: here('./assets/mark-dark.svg'),
-						alt: 'Pulzar',
+						alt: 'Pulzr',
 					},
 					customCss: [
 						'@fontsource/ibm-plex-sans/400.css',
@@ -178,7 +178,7 @@ export default function pulzarDocs(options) {
 }
 
 /**
- * The plugins a Pulzar site uses: the theme, and (unless turned off) the
+ * The plugins a Pulzr site uses: the theme, and (unless turned off) the
  * internal link validator. Spread into Starlight's `plugins`.
  * @param {PulzarDocsOptions} options
  */

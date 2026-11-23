@@ -4,7 +4,7 @@
 //
 //   npx --yes @pulzr/docs-theme init --project my-project --description "What it is."
 //
-// It writes docs/ (Starlight with the Pulzar theme) and
+// It writes docs/ (Starlight with the Pulzr theme) and
 // .github/workflows/docs.yml, and refuses to overwrite a file that exists.
 import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join, relative } from 'node:path';

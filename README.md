@@ -6,7 +6,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 One [Starlight](https://starlight.astro.build) theme for the documentation of
-every Pulzar open-source project, so they read as one family: the same brand,
+every Pulzr open-source project, so they read as one family: the same brand,
 the same chrome, the same components for the pages every project needs, and a
 starter that gives a new project its docs site in one command.
 
@@ -28,7 +28,7 @@ starter that gives a new project its docs site in one command.
   footer, with each owner's notice and the files' credits. Never use an icon
   that redraws a logo, such as Starlight's `seti:rust` or `github` icons.
 - **Shared chrome.** A project switcher across the family
-  ([`projects.mjs`](projects.mjs)), a footer with "Maintained by Pulzar", the
+  ([`projects.mjs`](projects.mjs)), a footer with "Maintained by Pulzr", the
   license and the security reporting link, edit links to the page's source,
   a GitHub link, the favicon, and Starlight's Pagefind search.
 - **Link checking.** Every internal link is checked at build time
@@ -184,9 +184,9 @@ move to a new one with a one-line change.
 
 ## License
 
-MIT. See [LICENSE](LICENSE). The Pulzr mark and the Pulzar wordmark are
-Pulzar LLC's trademarks; use them only for Pulzar's own projects.
+MIT. See [LICENSE](LICENSE). The Pulzr mark and wordmark are Pulzar LLC's
+trademarks; use them only for Pulzr's own projects.
 
-## Maintained by Pulzar
+## Maintained by Pulzr
 
-Maintained by [Pulzar](https://pulzr.net) for its open-source projects.
+Maintained by [Pulzr](https://pulzr.net) for its open-source projects.

@@ -1,6 +1,6 @@
 ---
 /*
- * A menu of the Pulzar open-source projects, from projects.mjs. A plain
+ * A menu of the Pulzr open-source projects, from projects.mjs. A plain
  * <details> element: works without JavaScript, by keyboard, and on phones.
  */
 import site from 'virtual:pulzar-docs/site';
@@ -8,11 +8,11 @@ const current = site.project;
 ---
 
 <details class="pz-switcher">
-	<summary aria-label="Other Pulzar projects">
+	<summary aria-label="Other Pulzr projects">
 		<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"></path><path d="m7 9 5-5 5 5"></path></svg>
 	</summary>
 	<div class="pz-menu" role="menu">
-		<p class="pz-menu-label">Pulzar open source</p>
+		<p class="pz-menu-label">Pulzr open source</p>
 		{site.projects.map((p) => (
 			<a role="menuitem" href={p.docs} class:list={{ current: p.id === current }} aria-current={p.id === current ? 'page' : undefined}>
 				<span class="name">{p.name}</span>
@@ -21,7 +21,7 @@ const current = site.project;
 		))}
 		<a role="menuitem" href={`${site.home}/`} class="all">
 			<span class="name">All projects</span>
-			<span class="desc">Every Pulzar open-source project, on {new URL(site.home).host}</span>
+			<span class="desc">Every Pulzr open-source project, on {new URL(site.home).host}</span>
 		</a>
 	</div>
 </details>

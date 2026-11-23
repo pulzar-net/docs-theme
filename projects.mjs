@@ -1,5 +1,5 @@
 /**
- * Pulzar's open-source projects, in one place: every site's project switcher
+ * Pulzr's open-source projects, in one place: every site's project switcher
  * and the landing page at https://oss.pulzr.net/ are built from this list.
  * Add a new public project here (and tag a release of this package) to have
  * it appear on both.

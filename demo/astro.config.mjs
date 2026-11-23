@@ -12,7 +12,7 @@ export default defineConfig({
 	integrations: [
 		starlight({
 			title: 'docs-theme',
-			description: 'The shared Starlight theme for Pulzar open-source projects.',
+			description: 'The shared Starlight theme for Pulzr open-source projects.',
 			plugins: pulzarPlugins({ project: 'docs-theme', siteDir: 'demo', linkExclude: ['/docs-theme/asyncapi-sample.json'] }),
 			sidebar: [
 				{ label: 'Start here', items: ['guides', 'guides/getting-started'] },
