@@ -38,6 +38,7 @@ const list = [
 	{ id: 'oui', area: 'devices', description: 'MAC address vendor lookup as small static files, rebuilt weekly from the IEEE registries', stack: ['python', 'javascript'] },
 	{ id: 'pulzr-sdk', area: 'build', docs: 'https://app.pulzr.net/docs/sdks', description: 'Python and TypeScript SDKs for the Pulzr API', stack: ['python', 'typescript'], packages: [{ registry: 'pypi', name: 'pulzr' }, { registry: 'npm', name: '@pulzr/sdk' }] },
 	{ id: 'pulzr-package-sdk', area: 'build', docs: true, description: 'SDK for sandboxed gateway packages', stack: ['rust', 'webassembly', 'python'], packages: [{ registry: 'crates', name: 'pulzr-package' }, { registry: 'pypi', name: 'pulzr-pkg' }] },
+	{ id: 'connectivity-1nce', area: 'build', description: '1NCE IoT SIMs as a carrier driver: a sandboxed package on the Pulzr package SDK', stack: ['rust', 'webassembly'], packages: [{ registry: 'github' }] },
 	{ id: 'docs-theme', area: 'build', docs: true, description: 'The Starlight theme and starter for these docs', stack: ['starlight'], packages: [{ registry: 'npm', name: '@pulzr/docs-theme' }] },
 	{ id: 'basicstation-gate', area: 'lorawan', description: 'LoRa Basics Station front door and CUPS server for ChirpStack and other network servers', stack: ['lorawan', 'python'] },
 	{ id: 'lorawan-locate', area: 'lorawan', description: 'Locate LoRaWAN devices from the gateways that heard them', stack: ['lorawan', 'python'] },
