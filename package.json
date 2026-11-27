@@ -47,7 +47,7 @@
   "peerDependencies": {
     "@astrojs/starlight": ">=0.43.0",
     "astro": ">=7.4.0",
-    "@scalar/api-reference": "1.82.1"
+    "@scalar/api-reference": "1.83.0"
   },
   "peerDependenciesMeta": {
     "@scalar/api-reference": {
@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "@astrojs/starlight": "0.43.1",
-    "@scalar/api-reference": "1.82.1",
+    "@scalar/api-reference": "1.83.0",
     "astro": "7.4.13"
   },
   "scripts": {
